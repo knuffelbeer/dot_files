@@ -1,0 +1,61 @@
+font:
+  normal:
+    family: "ComicShannsMono Nerd Font"
+    style: Regular
+
+  bold:
+    family: "ComicShannsMono Nerd Font"
+    style: Bold
+
+  italic:
+    family: "ComicShannsMono Nerd Font"
+    style: Italic
+
+  bold_italic:
+    family:  "ComicShannsMono Nerd Font"
+    style: Bold Italic
+
+  size: 11
+  # Offset is the extra space around each character. offset.y can be thought of
+  # as modifying the linespacing, and offset.x as modifying the letter spacing.
+offset:
+    x: 0
+    y: 0
+
+  # Glyph offset determines the locations of the glyphs within their cells with
+  # the default being at the bottom. Increase the x offset to move the glyph to
+  # the right, increase the y offset to move the glyph upward.
+glyph_offset:
+    x: 0
+    y: 0
+
+window:
+    opacity: 1.0
+# Colors (Nord)
+colors:
+  # Default colors
+  primary:
+    background: '0x050608'
+    foreground: '0xD8DEE9'
+
+  # Normal colors
+  normal:
+    black:   '0x3B4252'
+    red:     '0xBF616A'
+    green:   '0xA3BE8C'
+    yellow:  '0xEBCB8B'
+    blue:    '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan:    '0x88C0D0'
+    white:   '0xE5E9F0'
+
+  # Bright colors
+  bright:
+    black:   '0x4C566A'
+    red:     '0xBF616A'
+    green:   '0xA3BE8C'
+    yellow:  '0xEBCB8B'
+    blue:    '0x81A1C1'
+    magenta: '0xB48EAD'
+    cyan:    '0x8FBCBB'
+    white:   '0xECEFF4'
