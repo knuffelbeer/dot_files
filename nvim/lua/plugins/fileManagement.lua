@@ -11,6 +11,38 @@ return {
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+
+			local hl = function(name, opts)
+			  vim.api.nvim_set_hl(0, name, opts)
+			end
+
+--			hl("TelescopeNormal", { bg = "#181825" })
+--			hl("TelescopePreviewNormal", { bg = "#181825" })
+--			hl("TelescopeResultsNormal", { bg = "#181825" })
+--			hl("TelescopeBorder", { bg = "#181825" })
+--			hl("TelescopePreviewBorder", { fg = "#181825", bg = "#181825" })
+--			hl("TelescopePromptBorder", { fg = "#313244", bg = "#313244" })
+--			hl("TelescopeResultsBorder", { fg = "#181825", bg = "#181825" })
+--			hl("TelescopeTitle", { fg = "#181825", bg = "#89b4fa" })
+--			hl("TelescopePreviewTitle", { fg = "#181825", bg = "#89b4fa" })
+--			hl("TelescopePromptNormal", { bg = "#313244" })
+--			hl("TelescopePromptTitle", { fg = "#181825", bg = "#89b4fa" })
+--			hl("TelescopePromptCounter", { fg = "#89b4fa", bg = "#313244" })
+--			hl("TelescopePromptPrefix", { fg = "#89b4fa", bg = "#313244" })
+
+			hl("TelescopeNormal", { bg = "none", fg = "#870000" })
+			hl("TelescopePreviewNormal", { bg = "none" , fg = "#5f6b64" })
+			hl("TelescopeResultsNormal", { bg = "none" , fg = "#5f6b64" })
+			hl("TelescopeBorder", { bg = "#181825" })
+			hl("TelescopePreviewBorder", { fg = "#870000", bg = "none" })
+			hl("TelescopePromptBorder", { fg =  "#870000", bg = "none" })
+			hl("TelescopeResultsBorder", { fg = "#870000", bg = "none" })
+			hl("TelescopeTitle", { fg = "#181825", bg = "#870000" })
+			hl("TelescopePreviewTitle", { fg = "#181825", bg = "#870000" })
+			hl("TelescopePromptNormal", { bg = "none" ,fg = "#5f6b64" })
+
+			hl("TelescopePromptTitle", { fg = "#181825", bg = "#870000" })
+			hl("TelescopePromptCounter", { fg = "#870000", bg = "none" })
 		end,
 	},
 	{
@@ -24,18 +56,18 @@ return {
 				end)
 		end,
 	},
-	{
-		"sayanarijit/xplr.vim",
-		config = function()
-			vim.cmd([[
-        let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.9, 'highlight': 'Debug' } }
-        let g:nnn#action = {
-              \ '<c-t>': 'tab split',
-              \ '<c-x>': 'split',
-              \ '<c-v>': 'vsplit' }
-        let g:nnn#replace_netrw = 1
-      ]])
-		end,
-		lazy = false,
-	},
+--	{
+--		"sayanarijit/xplr.vim",
+--		config = function()
+--			vim.cmd([[
+--        let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.9, 'highlight': 'Debug' } }
+--        let g:nnn#action = {
+--              \ '<c-t>': 'tab split',
+--              \ '<c-x>': 'split',
+--              \ '<c-v>': 'vsplit' }
+--        let g:nnn#replace_netrw = 1
+--      ]])
+--		end,
+--		lazy = false,
+--	},
 }

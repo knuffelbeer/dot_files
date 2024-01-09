@@ -18,5 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.wo.relativenumber = true
 vim.cmd([[set clipboard+=unnamedplus]])
+require("netrw")
 require("lazy").setup("plugins")
 require("mappings")

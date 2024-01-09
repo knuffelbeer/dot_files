@@ -6,7 +6,8 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
 --XPLR keybndings
-vim.keymap.set("n", "<leader>pv", ":Xplr<CR>")
+--vim.keymap.set("n", "<leader>pv", ":Xplr<CR>")
+vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
 
 -- Delete
 vim.keymap.set("v", "<leader>d", '"_d')
