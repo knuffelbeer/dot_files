@@ -6,8 +6,9 @@ return {
 		lazy = false,
 		config = function()
 			require("toggleterm").setup({
-				open_mapping = [[<c-\>]],
-				direction = 'horizontal',
+				--open_mapping = [[<c-t>]],
+	start_in_insert = true,
+	direction = 'horizontal',
 --				highlights = {
 --								-- highlights which map to a highlight group name and a table of it's values
 --						-- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
@@ -17,6 +18,7 @@ return {
 --					--	    },
 --				},
 			})
+			vim.keymap.set("n", "<leader>tt", ":ToggleTerm<cr>")
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
   vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)

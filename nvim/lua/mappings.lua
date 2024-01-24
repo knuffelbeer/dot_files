@@ -7,7 +7,7 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
 --XPLR keybndings
 --vim.keymap.set("n", "<leader>pv", ":Xplr<CR>")
-vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
+--vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
 
 -- Delete
 vim.keymap.set("v", "<leader>d", '"_d')
@@ -26,4 +26,8 @@ for x = 1, 9 do
 end
 
 
-vim.keymap.set("n", "<leader>nc", ' 0 o```{python} \n \n``` <esc>')
+--vim.keymap.set("n", "<leader>nc", ' 0 o```{python} \n \n``` <esc>')
+--vim.keymap.set("n", "<M-k>" ,"<C-w>k")
+--vim.keymap.set("n", "<M-j>" ,"<C-w>j")
+--vim.keymap.set("n", "<M-h>" ,"<C-w>h")
+--vim.keymap.set("n", "<M-l>" ,"<C-w>l")

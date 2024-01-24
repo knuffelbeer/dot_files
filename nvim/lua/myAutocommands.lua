@@ -43,12 +43,31 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 local text_to_insert_2 = {"import numpy as np",
 "import torch", "import pandas as pd", "import matplotlib.pyplot as plt", "", 'if __name__ == "__main__":', "	"}
 vim.api.nvim_create_autocmd("BufNewFile", {
-	callback = function()
+	callback = function(table)
 
 		vim.fn.append(0, text_to_insert_2)
-		vim.api.nvim_win_set_cursor(0, {7, 1})
+		vim.fn.append(0, "# " .. table.file .. " created by Beer Meester 13171429")
+		vim.api.nvim_win_set_cursor(0, {8, 1})
 		vim.cmd([[startinsert]])
 	end,
 	group = group,
 	pattern = "*.py",
 })
+
+--vim.cmd([[
+--augroup highlight_yank
+--    autocmd!
+--    au TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=50})
+--augroup END]])
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function() vim.highlight.on_yank() end,
+  desc = "Briefly highlight yanked text"
+})
+vim.api.nvim_create_autocmd('TermEnter', {
+
+	callback = function(table)
+		io.open('mamba activate pynvim')
+	end,
+	pattern = '*.py',
+})
+--vim.cmd('autocmd! TermOpen term://* startinsert')
