@@ -14,6 +14,7 @@ return {
 				null_ls.builtins.formatting.shellharden,
 				--null_ls.builtins.formatting.ast_grep,
 				null_ls.builtins.diagnostics.cpplint,
+				--null_ls.builtins.diagnostics.vale,
 			},
 		})
 

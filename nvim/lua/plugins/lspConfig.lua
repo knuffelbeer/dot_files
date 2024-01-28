@@ -26,6 +26,9 @@ return {
 			lspconfig.tsserver.setup({
 				capabilities = capabilities,
 			})
+			lspconfig.ltex.setup({
+				capabilities = capabilities,
+			})
 			lspconfig.html.setup({
 				capabilities = capabilities,
 			})

@@ -6,7 +6,7 @@ return {
 		lazy = false,
 		config = function()
 			require("toggleterm").setup({
-				--open_mapping = [[<c-t>]],
+				open_mapping = [[<c-t>]],
 	start_in_insert = true,
 	direction = 'horizontal',
 --				highlights = {
