@@ -1,10 +1,3 @@
-local function slice(array, start_idx, end_idx)
-	local new_array = {}
-	for i = start_idx, end_idx, 1 do
-		new_array[#new_array + 1] = array[i]
-	end
-	return new_array
-end
 local group = vim.api.nvim_create_augroup("Autowrite", { clear = true })
 local text_to_insert = {
 	"\\documentclass{article}",
@@ -23,7 +16,7 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 	callback = function(table)
 		-- code
 		local date = os.date("%Y%m%d")
-		date = string.sub(date, 1, 4) .. "-" .. string.sub(date,5, 6) .. "-" .. string.sub(date, 7, #date)
+		date = string.sub(date, 1, 4) .. "-" .. string.sub(date, 5, 6) .. "-" .. string.sub(date, 7, #date)
 		local title = table.file
 		local tex_idx = #title - 3
 		title = string.sub(table.file, 1, tex_idx - 1)
@@ -32,7 +25,7 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 		text_to_insert[3] = "\\date{" .. date .. "}"
 		text_to_insert[4] = "\\title{" .. title .. "}"
 		vim.fn.append(0, text_to_insert)
-		vim.api.nvim_win_set_cursor(0, {9, 0})
+		vim.api.nvim_win_set_cursor(0, { 9, 0 })
 
 		vim.cmd([[startinsert]])
 		vim.cmd([[set spell]])
@@ -40,34 +33,64 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 	group = group,
 	pattern = "*.tex",
 })
-local text_to_insert_2 = {"import numpy as np",
-"import torch", "import pandas as pd", "import matplotlib.pyplot as plt", "", 'if __name__ == "__main__":', "	"}
+
+local text_to_insert_2 = {
+	"import numpy as np",
+	"import torch",
+	"import pandas as pd",
+	"import matplotlib.pyplot as plt",
+	"",
+	'if __name__ == "__main__":',
+	"	",
+}
+
 vim.api.nvim_create_autocmd("BufNewFile", {
 	callback = function(table)
-
 		vim.fn.append(0, text_to_insert_2)
 		vim.fn.append(0, "# " .. table.file .. " created by Beer Meester 13171429")
-		vim.api.nvim_win_set_cursor(0, {8, 1})
+		vim.api.nvim_win_set_cursor(0, { 8, 1 })
 		vim.cmd([[startinsert]])
 	end,
 	group = group,
 	pattern = "*.py",
 })
 
---vim.cmd([[
---augroup highlight_yank
---    autocmd!
---    au TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=50})
---augroup END]])
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function() vim.highlight.on_yank() end,
-  desc = "Briefly highlight yanked text"
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	desc = "Briefly highlight yanked text",
 })
-vim.api.nvim_create_autocmd('TermEnter', {
+
+vim.api.nvim_create_autocmd("TermEnter", {
+
+	callback = function()
+		io.open("mamba activate pynvim")
+	end,
+	pattern = "*.py",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+	group = vim.api.nvim_create_augroup("cpp", { clear = true }),
+	pattern = { "*.cpp", "*.C" },
+	callback = function(table)
+		local extenstion = string.sub(table.file, #table.file - 3, #table.file)
+		local bin_file = nil
+		if extenstion == ".cpp" then
+			bin_file = string.sub(table.file, 1, #table.file - 4)
+		else
+			bin_file = string.sub(table.file, 1, #table.file - 2)
+		end
+		vim.keymap.set("n", "<leader>cp", function()
+			require("toggleterm").exec("make " .. table.file .. " && ." .. bin_file)
+		end, { noremap = true, silent = true })
+	end,
+})
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+	pattern = {"nnn"},
 
 	callback = function(table)
-		io.open('mamba activate pynvim')
-	end,
-	pattern = '*.py',
+
+		print("Xplr")
+	end
 })
---vim.cmd('autocmd! TermOpen term://* startinsert')

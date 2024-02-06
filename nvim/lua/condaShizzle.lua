@@ -24,25 +24,25 @@ local conf = require("telescope.config").values
 local selectConda = function(opts, resultsinos)
 	opts = opts or {}
 	pickers
-		.new(opts, {
-			prompt_title = "Conda Environments",
-			finder = finders.new_table({
-				results = resultsinos or { "MLSD", "pynvim", "base" },
-			}),
-			sorter = conf.generic_sorter(opts),
-			attach_mappings = function(prompt_bufnr, map)
-				actions.select_default:replace(function()
-					actions.close(prompt_bufnr)
-					local selection = action_state.get_selected_entry()
-					require("toggleterm").exec("conda activate " .. selection[1])
-					vim.g.python3_host_prog = selection[1] .. "/bin/python"
-					envs.activate(selection[1])
-					lsps_utils.restart_lsps()
-				end)
-				return true
-			end,
-		})
-		:find()
+	    .new(opts, {
+		    prompt_title = "Conda Environments",
+		    finder = finders.new_table({
+			    results = resultsinos or { "MLSD", "pynvim", "base" },
+		    }),
+		    sorter = conf.generic_sorter(opts),
+		    attach_mappings = function(prompt_bufnr, map)
+			    actions.select_default:replace(function()
+				    actions.close(prompt_bufnr)
+				    local selection = action_state.get_selected_entry()
+				    require("toggleterm").exec("conda activate " .. selection[1])
+				    vim.g.python3_host_prog = selection[1] .. "/bin/python"
+				    envs.activate(selection[1])
+				    lsps_utils.restart_lsps()
+			    end)
+			    return true
+		    end,
+	    })
+	    :find()
 end
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -55,3 +55,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		end)
 	end,
 })
+
+local function Slice(array, start_idx, end_idx)
+	local new_arr = {}
+
+	if end_idx < 0 then
+		end_idx = length(array) + end_idx
+	end
+	for i = start_idx, end_idx, 1 do
+		new_arr[#new_arr + 1] = array[i]
+	end
+end
