@@ -46,6 +46,26 @@ return {
 			vim.cmd.colorscheme("tokyonight")
 		end,
 	},
+
+	 -- {"rose-pine/neovim", name = "rose-pine"},
+--		{
+--			"catppuccin/nvim",
+--			name = "catppuccin",
+--			priority = 1000,
+--			opts = {
+--				transparent_background = true,
+--				integrations = {
+--					telescope = true,
+--					harpoon = true,
+--					mason = true,
+--					neotest = true,
+--				},
+--			},
+--			config = function(_, opts)
+--				require("catppuccin").setup(opts)
+--				vim.cmd.colorscheme("catppuccin-frappe")
+--			end,
+--		},
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -116,6 +136,8 @@ return {
 				inactive_winbar = {},
 				extensions = {},
 			}))
+			-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 		end,
 	},
 }

@@ -18,7 +18,6 @@ return {
 --					--	    },
 --				},
 			})
-			vim.keymap.set("n", "<leader>tt", ":ToggleTerm<cr>")
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
   vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
@@ -31,8 +30,11 @@ function _G.set_terminal_keymaps()
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-		end,
-	},
+--vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+--		end,
+end
+	}
 	-- or
+
 }
+

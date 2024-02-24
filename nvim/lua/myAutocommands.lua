@@ -41,7 +41,7 @@ local text_to_insert_2 = {
 	"import matplotlib.pyplot as plt",
 	"",
 	'if __name__ == "__main__":',
-	"	",
+	"  ",
 }
 
 vim.api.nvim_create_autocmd("BufNewFile", {
@@ -62,13 +62,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Briefly highlight yanked text",
 })
 
-vim.api.nvim_create_autocmd("TermEnter", {
-
-	callback = function()
-		io.open("mamba activate pynvim")
-	end,
-	pattern = "*.py",
-})
+--vim.api.nvim_create_autocmd("TermEnter", {
+--
+--	callback = function()
+--		io.open("mamba activate pynvim")
+--	end,
+--	pattern = "*.py",
+--})
 
 vim.api.nvim_create_autocmd({ "BufRead" }, {
 	group = vim.api.nvim_create_augroup("cpp", { clear = true }),
@@ -82,15 +82,33 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
 			bin_file = string.sub(table.file, 1, #table.file - 2)
 		end
 		vim.keymap.set("n", "<leader>cp", function()
-			require("toggleterm").exec("make " .. table.file .. " && ." .. bin_file)
+			vim.cmd(":w")
+			require("toggleterm").exec("g++ -pedantic -Wall -Werror -g -O0 " .. table.file .. " && ./a.out")
 		end, { noremap = true, silent = true })
 	end,
 })
-vim.api.nvim_create_autocmd({ "BufRead" }, {
-	pattern = {"nnn"},
 
-	callback = function(table)
+vim.api.nvim_create_autocmd("TermClose", {
+	group = vim.api.nvim_create_augroup("DeleteLastLineTermClose", { clear = true }),
+	pattern = { "*" },
+	callback = function(ev)
+		local delete_line_timer = vim.fn.timer_start(
+			100,
+			function(t) ---@diagnostic disable-line: redundant-parameter
+				local process_exited_line = vim.fn.search("\\[process exited \\d\\]", "bn")
+				if process_exited_line > 0 then
+					vim.api.nvim_set_option_value("modifiable", true, { buf = ev.buf })
+					vim.api.nvim_buf_set_lines(ev.buf, process_exited_line - 1, process_exited_line, true, { "" })
+					vim.api.nvim_set_option_value("modifiable", false, { buf = ev.buf })
+					vim.fn.timer_stop(t)
+				end
+			end,
+			{ ["repeat"] = -1 } -- repeat indefinitely but will be cancelled after 3 seconds
+		)
 
-		print("Xplr")
-	end
+		-- give at most 3 seconds of an attempt to delete the line
+		vim.defer_fn(function()
+			vim.fn.timer_stop(delete_line_timer)
+		end, 3000)
+	end,
 })

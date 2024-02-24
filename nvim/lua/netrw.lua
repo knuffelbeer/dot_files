@@ -1,9 +1,10 @@
-vim.cmd(
-[[
-let g:netrw_keepdir = 0
+vim.cmd([[
+
 let g:netrw_winsize = 30
+let g:netrw_keepdir = 0
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_localcopydircmd = 'cp -r'
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 function! NetrwMapping()
   nmap <buffer> <TAB> mf
@@ -19,6 +20,6 @@ augroup netrw_mapping
   autocmd filetype netrw call NetrwMapping()
 augroup END
 
-]]
-)
+]])
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
+-- let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'

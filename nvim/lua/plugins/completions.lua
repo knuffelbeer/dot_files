@@ -71,10 +71,16 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
 				--}),
+				--sources = {
+				--	{ name = "nvim_lsp" },
+				--	{ name = "path" },
+				--	{ name = "luasnip" }, -- For luasnip users.
+				--	{ name = "buffer" },
+				--},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{ name = "path" },
 					{ name = "luasnip" }, -- For luasnip users.
-				}, {
 					{ name = "buffer" },
 				}),
 			})
