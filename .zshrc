@@ -1,20 +1,28 @@
 #!/bin/zsh
 set -o vi
 
+
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
+
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export EDITOR="nvim"
 # Path to your oh-my-zsh installation.
 
 #export LUA_PATH="/home/knuffelbeer/.luarocks/lib/luarocks/rocks-5.1/magick/1.6.0-1/?.lua;;"
 #export LUA_CPATH="/home/knuffelbeer/.luarocks/lib/luarocks/rocks-5.1/magick/1.6.0-1/?.so;;"
-ZSH=/usr/share/oh-my-zsh/
+#ZSH=/usr/share/oh-my-zsh/
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="theunraveler"
 # ZSH_THEME="mh"
-# ZSH_THEME="kafeitu"
+ ZSH_THEME="kafeitu"
 # ZSH_THEME="jbergantine"
 
 # Set list of themes to pick from when loading at random
@@ -80,111 +88,25 @@ ZSH_THEME="theunraveler"
 plugins=(git zsh-autosuggestions zsh-history-substring-search zsh-vi-mode zsh-syntax-highlighting)
 
 
-# User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias x="xplr"
 alias n="nvim"
 alias vim="nvim"
-alias vi="nvim"
-open-xplr(){
-exec </dev/tty
-exec <&1
-xplr
-}
-zle -N open-xplr
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+alias vi="nvim $(fzf)"
 
 # ~/.bashrc
 export PATH=$PATH:/opt/mambaforge/bin
 export PATH=$PATH:/home/knuffelbeer/.local/bin
-export PATH=$PATH:/home/knuffelbeer/Discord
 export PATH=$PATH:/usr/bin
-alias lf="lf-ueberzug"
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
 
-#alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-PS1='[\u@\h \W]\$ '
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/mambaforge/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/mambaforge/etc/profile.d/conda.sh" ]; then
-        . "/opt/mambaforge/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/mambaforge/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/opt/mambaforge/etc/profile.d/mamba.sh" ]; then
-    . "/opt/mambaforge/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
-# if [ -z "$TMUX" ]; then
-#    tmux new -As Beer
-#  fi
-#export LUA=/usr/local/bin/lua
-ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir $ZSH_CACHE_DIR
-fi
-
-source $ZSH/oh-my-zsh.sh
  
-alias l="/usr/bin/ls --color"
-alias ls="lsd"
-if [ -z "$TMUX" ]; then
-   tmux new -As Beer
-   else
-    colorscript -r
-    # mamba activate MLSD
+source $ZSH/oh-my-zsh.sh
 
-    bindkey "\ei" open-xplr
+if [ -z "$SSH_AUTH_SOCK" ]; then
+	eval "$(ssh-agent -s)"
+fi
+
+if [ -z "$TMUX" ]; then
+	tmux new -As Beer
+
 fi
