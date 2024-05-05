@@ -1,5 +1,4 @@
 #!/bin/zsh
-set -o vi
 
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -88,25 +87,44 @@ export EDITOR="nvim"
 plugins=(git zsh-autosuggestions zsh-history-substring-search zsh-vi-mode zsh-syntax-highlighting)
 
 
+# Define the function
+vimmiedepimmie() {
+  if [[ $# -eq 0 ]]; then
+    # If no arguments, use fzf to select a file and open it in neovim
+    nvim "$(fzf)"
+  else
+    # If arguments are provided, open them directly in neovim
+    nvim "$@"
+  fi
+}
+
+# Create an alias for the function
+alias vi='vimmiedepimmie'
+alias v='vimmiedepimmie'
 
 alias x="xplr"
 alias n="nvim"
 alias vim="nvim"
-alias vi="nvim $(fzf)"
+alias c="cd"
 
 # ~/.bashrc
-export PATH=$PATH:/opt/mambaforge/bin
+export PATH=$PATH:~/sc-im/src
 export PATH=$PATH:/home/knuffelbeer/.local/bin
 export PATH=$PATH:/usr/bin
 
  
 source $ZSH/oh-my-zsh.sh
+eval "$(zoxide init --cmd cd zsh)"
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
-	eval "$(ssh-agent -s)"
+	eval "$(ssh-agent)"
 fi
 
 if [ -z "$TMUX" ]; then
-	tmux new -As Beer
+	tmux new -As knuffelbeer
 
+else
+	lolcat ~/.southpark
+	source /home/knuffelbeer/meesterSolutions/AlgorithmOfEverything/Jan/bin/activate
 fi
+set -o vi

@@ -405,14 +405,11 @@ globalkeys = gears.table.join(
 	awful.key({ "Control", "Shift" }, "q", function()
 		awful.spawn("poweroff")
 	end, { description = "Power Off" }),
-	awful.key({ modkey, "Mod1" }, "c", function()
-		awful.spawn(default_browser .. " https://canvas.uva.nl/")
+	awful.key({ modkey, "Shift" }, "c", function()
+		awful.spawn(default_browser .. " --new-window https://canvas.uva.nl/")
 	end, { description = "Open canvas", group = "applications" }),
 
-	awful.key({ modkey }, "y", function()
-		awful.spawn("qutebrowser https://www.youtube.com/ ", { window = 5 })
-	end, { description = "Open youtube", group = "applications" }),
-	awful.key({ modkey, "Mod1" }, "g", function()
+	awful.key({ modkey, "Shift" }, "g", function()
 		awful.spawn(default_browser .. " https://chat.openai.com/")
 	end, { description = "Chatgpt", group = "applications" }),
 	awful.key({ modkey, "Shift" }, "b", function()
@@ -748,7 +745,7 @@ battimer:start()
 -- awful.util.spawn(default_browser)
 ----experimental-backends --no-fading-openclose
 awful.spawn("picom")
-beautiful.useless_gap = 5
+-- beautiful.useless_gap = 5
 -- s.mywibox.visible = false
 -- }}}
 client.connect_signal("property::maximized", function(c)
