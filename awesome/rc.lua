@@ -88,7 +88,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init("/home/knuffelbeer/.config/awesome/theme.lua")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
-gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/Deadpool-PC-Wallpaper-3117989267.jpg", 1)
+gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/deadpool.jpg", 1)
 
 -- This is used later as the default terminal ad editor to run.
 math.randomseed(os.time())
@@ -258,7 +258,7 @@ awful.screen.connect_for_each_screen(function(s)
 	-- set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
+	awful.tag({ "1", "2", "3", "4", "5"  ,"6", "7", "8","9","10" }, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -405,14 +405,11 @@ globalkeys = gears.table.join(
 	awful.key({ "Control", "Shift" }, "q", function()
 		awful.spawn("poweroff")
 	end, { description = "Power Off" }),
-	awful.key({ modkey, "Mod1" }, "c", function()
-		awful.spawn(default_browser .. " https://canvas.uva.nl/")
+	awful.key({ modkey, "Shift" }, "c", function()
+		awful.spawn(default_browser .. " --new-window https://canvas.uva.nl/")
 	end, { description = "Open canvas", group = "applications" }),
 
-	awful.key({ modkey }, "y", function()
-		awful.spawn("qutebrowser https://www.youtube.com/ ", { window = 5 })
-	end, { description = "Open youtube", group = "applications" }),
-	awful.key({ modkey, "Mod1" }, "g", function()
+	awful.key({ modkey, "Shift" }, "g", function()
 		awful.spawn(default_browser .. " https://chat.openai.com/")
 	end, { description = "Chatgpt", group = "applications" }),
 	awful.key({ modkey, "Shift" }, "b", function()
@@ -425,11 +422,11 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "w", function()
 		awful.spawn(default_browser .. " https://web.whatsapp.com/")
 	end, { description = "Open Whatsapp", group = "applications" }),
-	awful.key({ modkey, "Mod1" }, "s", function()
+	awful.key({ modkey }, "s", function()
 		awful.spawn("spotify")
 	end, { description = "Open spotifOpen spotify" }),
 
-	awful.key({ modkey, "Mod1" }, "f", function()
+	awful.key({ modkey, "Shift" }, "f", function()
 		awful.spawn(default_browser .. " https://fmoviesz.to/tv/the-big-bang-theory-jjq14/8-4")
 	end, { description = "Open fmovies", group = "applications" }),
 	-- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -561,11 +558,18 @@ clientkeys = gears.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 5 do
+for i = 1, 10 do
+
+	local tagnum = i
+	if i == 10 then
+		tagnum = 0
+	end
+
 	globalkeys = gears.table.join(
 		globalkeys,
 		-- View tag only.
-		awful.key({ modkey }, i, function()
+
+		awful.key({ modkey }, tagnum, function()
 			local screen = awful.screen.focused()
 			local tag = screen.tags[i]
 			if tag then
@@ -741,8 +745,7 @@ battimer:start()
 -- awful.util.spawn(default_browser)
 ----experimental-backends --no-fading-openclose
 awful.spawn("picom")
-awful.spawn("bash /home/knuffelbeer/.config/polybar/launch.sh", { below = true })
-beautiful.useless_gap = 5
+-- beautiful.useless_gap = 5
 -- s.mywibox.visible = false
 -- }}}
 client.connect_signal("property::maximized", function(c)

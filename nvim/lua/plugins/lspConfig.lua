@@ -60,7 +60,7 @@ return {
 								typeCheckingMode = "basic",
 							},
 							-- Always use the current python in accordance with $PATH (the current conda/virtualenv).
-							pythonPath = vim.fn.exepath("/home/knuffelbeer/.conda/envs/pynvim/bin/python"),
+							pythonPath = vim.fn.exepath("/sbin/python"),
 						},
 					},
 				},

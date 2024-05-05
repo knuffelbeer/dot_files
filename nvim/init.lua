@@ -23,7 +23,9 @@ vim.wo.relativenumber = true
 -- vim.cmd([[set clipboard+=unnamedplus
 -- 	  set number
 -- ]])
--- vim.g.python3_host_prog = "/home/knuffelbeer/.conda/envs/pynvim/bin/python"
+-- vim.g.python3_host_prog = "/sbin/python3"
+-- Voor AlgorithmOfEverything venv, verander voor andere environment
+vim.g.python3_host_prog = "/home/knuffelbeer/meesterSolutions/AlgorithmOfEverything/Jan/bin/python3"
 require("netrw")
 require("lazy").setup("plugins")
 require("mappings")
@@ -35,3 +37,4 @@ vim.api.nvim_set_hl(0, "NormalFloat", { fg = "#8f938d", bg = "none" })
 vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#870000", bg = "none" })
 vim.api.nvim_set_hl(0, "FloatTitle", { fg = "#000000", bg = "#870000" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#870000" })
+vim.api.nvim_set_hl(0, "StatusLine", { fg = "#870000", bg = "none" })

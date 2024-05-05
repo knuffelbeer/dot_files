@@ -8,9 +8,9 @@ return {
     keymap = {
       jump_prev = "[[",
       jump_next = "]]",
-      accept = "<CR>",
+      accept = "<M-CR>",
       refresh = "gr",
-      open = "<M-CR>"
+      -- open = "<M-CR>"
     },
     layout = {
       position = "bottom", -- | top | left | right
@@ -21,8 +21,8 @@ return {
     enabled = true,
     auto_trigger = true,
     debounce = 75,
-    keymap = {
-      accept = "<M-l>",
+    keymap ={
+      accept = "<M-CR>",
       accept_word = false,
       accept_line = false,
       next = "<M-]>",
