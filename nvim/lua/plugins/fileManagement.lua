@@ -12,6 +12,9 @@ return {
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
+			vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {})
+			vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, {})
+			vim.keymap.set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, {})
 			local hl = function(name, opts)
 				vim.api.nvim_set_hl(0, name, opts)
 			end
@@ -40,7 +43,6 @@ return {
 			hl("TelescopeTitle", { fg = "#181825", bg = "#870000" })
 			hl("TelescopePreviewTitle", { fg = "#181825", bg = "#870000" })
 			hl("TelescopePromptNormal", { bg = "none", fg = "#5f6b64" })
-
 			hl("TelescopePromptTitle", { fg = "#181825", bg = "#870000" })
 			hl("TelescopePromptCounter", { fg = "#870000", bg = "none" })
 		end,
@@ -70,6 +72,12 @@ return {
 			vim.keymap.set("n", "<leader>af", function()
 				require("harpoon.mark").add_file()
 			end)
+
+			for x = 1, 9 do
+				vim.keymap.set("n", "<leader>h" .. x, function()
+					require("harpoon.ui").nav_file(x)
+				end, { noremap = true })
+			end
 		end,
 	},
 }

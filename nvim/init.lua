@@ -25,7 +25,7 @@ vim.wo.relativenumber = true
 -- ]])
 -- vim.g.python3_host_prog = "/sbin/python3"
 -- Voor AlgorithmOfEverything venv, verander voor andere environment
-vim.g.python3_host_prog = "/home/knuffelbeer/meesterSolutions/AlgorithmOfEverything/Jan/bin/python3"
+vim.g.python3_host_prog = "/home/knuffelbeer/.python_venvs/B/bin/python3"
 require("netrw")
 require("lazy").setup("plugins")
 require("mappings")
