@@ -3,7 +3,7 @@ return {
 		"williamboman/mason.nvim",
 		lazy = false,
 		config = function()
-			require("mason").setup({ ensure_installed = { "eslint_d", "erb_lint" } })
+			require("mason").setup({ ensure_installed = { "eslint_d", "erb_lint" , "cpplint", "codelldb"} })
 		end,
 	},
 	{
@@ -26,6 +26,9 @@ return {
 			lspconfig.tsserver.setup({
 				capabilities = capabilities,
 			})
+			lspconfig.cmake.setup({
+				capabilities = capabilities,
+			})
 			lspconfig.ltex.setup({
 				capabilities = capabilities,
 			})
@@ -36,9 +39,9 @@ return {
 				capabilities = capabilities,
 			})
 
-			lspconfig.tailwindcss.setup({
-				capabilities = capabilities,
-			})
+			-- lspconfig.tailwindcss.setup({
+			-- 	capabilities = capabilities,
+			-- })
 			lspconfig.clangd.setup({
 				capabilities = capabilities,
 			})
@@ -48,6 +51,9 @@ return {
 			})
 
 			lspconfig.r_language_server.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.ltex.setup({
 				capabilities = capabilities,
 			})
 			lspconfig.pyright.setup({
@@ -60,7 +66,7 @@ return {
 								typeCheckingMode = "basic",
 							},
 							-- Always use the current python in accordance with $PATH (the current conda/virtualenv).
-							pythonPath = vim.fn.exepath("/sbin/python"),
+							--pythonPath = vim.fn.exepath(""),
 						},
 					},
 				},

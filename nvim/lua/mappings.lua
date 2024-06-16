@@ -19,9 +19,7 @@ vim.keymap.set("n", "<leader>y", '"+y')
 vim.keymap.set("v", "<leader>p", '"+p')
 vim.keymap.set("n", "<leader>p", '"+p')
 
-
-for x = 1, 9 do
-	vim.keymap.set("n", "M-" .. x, function()
-		require("harpoon.ui").nav_file(x)
-	end, { noremap = true })
-end
+vim.keymap.set("n", "<leader>bp", ':bprev<CR>')
+vim.keymap.set("n", "<leader>bn", ':bnext<CR>')
+vim.keymap.set("v", "<leader>bp", ':bprev<CR>')
+vim.keymap.set("v", "<leader>bn", ':bnext<CR>')

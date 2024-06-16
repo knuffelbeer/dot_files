@@ -15,13 +15,21 @@ return {
 
 			highlight = {
 				enable = true,
-				disable = {"markdown_inline", "markdown"},
+				disable = { "markdown_inline", "markdown" },
 				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 				-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
 				-- Using this option may slow down your editor, and you may see some duplicate highlights.
 				-- Instead of true it can also be a list of languages
 				additional_vim_regex_highlighting = false,
 			},
+		})
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "tex",
+			callback = function(args)
+				vim.treesitter.start(args.buf, "latex")
+				vim.bo[args.buf].syntax = "on" -- only if additional legacy syntax is needed
+			end,
 		})
 	end,
 }
