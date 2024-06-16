@@ -1,3 +1,4 @@
+-- beer 
 package.path = "/home/knuffelbeer/.luarocks/share/lua/5.1/?.lua;" .. package.path
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 vim.keymap.set("n", "\\", ",", { noremap = true })
