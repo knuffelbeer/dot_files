@@ -88,7 +88,10 @@ end
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init("/home/knuffelbeer/.config/awesome/theme.lua")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
-gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/deadpool.jpg", 1)
+--gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/deadpool.jpg", 1)
+--gears.wallpaper.set("#000000")
+gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
+--gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/towelie2.jpg", 1)
 
 -- This is used later as the default terminal ad editor to run.
 math.randomseed(os.time())
@@ -129,14 +132,14 @@ awful.layout.layouts = {
 	--    awful.layout.suit.floating,
 	awful.layout.suit.tile,
 	--    awful.layout.suit.tile.left,
-	awful.layout.suit.fair,
+	--awful.layout.suit.fair,
 	--    awful.layout.suit.tile.bottom,
 	--    awful.layout.suit.tile.top,
 	--    awful.layout.suit.fair.horizontal,
 	--    awful.layout.suit.spiral,
 	--    awful.layout.suit.spiral.dwindle,
 	--    awful.layout.suit.max,
-	--    awful.layout.suit.max.fullscreen,
+	    --awful.layout.suit.max.fullscreen,
 	--    awful.layout.suit.magnifier,
 	--    awful.layout.suit.corner.nw,
 	-- awful.layout.suit.corner.ne,
@@ -379,10 +382,10 @@ globalkeys = gears.table.join(
 	end),
 
 	awful.key({ "Control" }, "XF86MonBrightnessDown", function()
-		awful.spawn("python /home/knuffelbeer/bashScripts/increase_terminal_opacity.py")
+		awful.spawn("python /home/knuffelbeer/bashScripts/increase_terminal_opacity_toml.py")
 	end),
 	awful.key({ "Control" }, "XF86MonBrightnessUp", function()
-		awful.spawn("python /home/knuffelbeer/bashScripts/decrease_terminal_opacity.py")
+		awful.spawn("python /home/knuffelbeer/bashScripts/decrease_terminal_opacity_toml.py")
 	end),
 
 	awful.key({}, "XF86MonBrightnessUp", function()
@@ -407,8 +410,11 @@ globalkeys = gears.table.join(
 	end, { description = "Power Off" }),
 	awful.key({ modkey, "Shift" }, "c", function()
 		awful.spawn(default_browser .. " --new-window https://canvas.uva.nl/")
-	end, { description = "Open canvas", group = "applications" }),
+	end, { description = "Open canvas new window", group = "applications" }),
 
+	awful.key({ modkey}, "c", function()
+		awful.spawn(default_browser .. " https://canvas.uva.nl/")
+	end, { description = "Open canvas same window", group = "applications" }),
 	awful.key({ modkey, "Shift" }, "g", function()
 		awful.spawn(default_browser .. " https://chat.openai.com/")
 	end, { description = "Chatgpt", group = "applications" }),
@@ -427,7 +433,7 @@ globalkeys = gears.table.join(
 	end, { description = "Open spotifOpen spotify" }),
 
 	awful.key({ modkey, "Shift" }, "f", function()
-		awful.spawn(default_browser .. " https://fmoviesz.to/tv/the-big-bang-theory-jjq14/8-4")
+		awful.spawn(default_browser .. " https://fmoviesz.to/tv/south-park-j2ywy")
 	end, { description = "Open fmovies", group = "applications" }),
 	-- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
 	--           {description="show help", group="awesome"}),
