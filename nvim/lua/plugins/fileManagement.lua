@@ -77,6 +77,10 @@ return {
 				vim.keymap.set("n", "<leader>h" .. x, function()
 					require("harpoon.ui").nav_file(x)
 				end, { noremap = true })
+
+				vim.keymap.set("n", "<leader>h0", function()
+					require("harpoon.ui").nav_file(10)
+				end, { noremap = true })
 			end
 		end,
 	},

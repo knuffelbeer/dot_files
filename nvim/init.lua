@@ -42,3 +42,6 @@ vim.opt.wrap = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.scrolloff = 8
+vim.bo.shiftwidth = 2
+vim.cmd("set tabstop=2")
+

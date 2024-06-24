@@ -1,3 +1,5 @@
+#!/bin/bash
+
 configDirectories=("nvim" "awesome" "alacritty")
 
 for dir in "${configDirectories[@]}"; do

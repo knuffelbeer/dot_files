@@ -637,6 +637,10 @@ awful.rules.rules = {
 		properties = { screen = 1, tag = "5" },
 		{ rule = { class = "Blueman-manager" }, properties = { screen = 1, tag = "5" } },
 	},
+	{
+		rule = { class = "ogreBullet" },
+		properties = { screen = 1, tag = "3" },
+	},
 	--     -- { rule = {class = "thorium-browser" , maximized=false},{rule= {class="qutebrowser", properties={screen=1, tag="5"}
 	{ rule = { class = "qutebrowser" }, properties = { screen = 1, tag = "3" } },
 	-- {rule = {class="qutebrowser"},

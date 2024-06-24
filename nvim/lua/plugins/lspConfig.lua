@@ -42,10 +42,13 @@ return {
 			-- lspconfig.tailwindcss.setup({
 			-- 	capabilities = capabilities,
 			-- })
-			lspconfig.clangd.setup({
+			lspconfig.ast_grep.setup({
 				capabilities = capabilities,
 			})
 
+			lspconfig.clangd.setup({
+				capabilities = capabilities,
+			})
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
 			})
@@ -79,6 +82,7 @@ return {
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 		end,
 	},
 }
