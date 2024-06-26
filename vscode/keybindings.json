@@ -1,7 +1,6 @@
-
 // Place your key bindings in this file to override the defaults
 [
-    // remap escape. Vs-code sucks
+    // This seemd like litteraly the only to remap ctrl+[ to escape nicely. Vs-code sucks
 { "key": "ctrl+[ ctrl+[",         "command": "workbench.action.exitZenMode",
                                      "when": "inZenMode" },
 { "key": "shift+ctrl+[",          "command": "closeReferenceSearch",
@@ -22,6 +21,10 @@
                                      "when": "inlineChatFocused && notebookCellChatFocused && notebookChatUserDidEdit && !notebookCellEditorFocused" },
 { "key": "ctrl+[",                "command": "notebook.cell.quitEdit",
                                      "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !inlineChatFocused" },
+{ "key": "escape",                "command": "notebook.cell.quitEdit",
+                                     "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !inlineChatFocused" },
+{ "key": "ctrl+h",                "command": "notebook.cell.quitEdit",
+                                     "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !inlineChatFocused" },
 { "key": "ctrl+[",                "command": "inlineChat.cancel",
                                      "when": "inlineChatHasProvider && inlineChatVisible && config.inlineChat.mode == 'preview'" },
 { "key": "ctrl+[",                "command": "inlineChat.close",
@@ -36,9 +39,9 @@
                                      "when": "editorTextFocus && selectionAnchorSet" },
 { "key": "ctrl+[",                "command": "editor.action.hideColorPicker",
                                      "when": "standaloneColorPickerVisible" },
-{ "key": "ctrl+[",                "command": "editor.action.inlineEdit.reject",
-                                     "when": "inlineEditVisible && !editorReadonly" },
-{ "key": "ctrl+[",                "command": "editor.action.inlineSuggest.hide",
+{
+    "key": "ctrl+[",
+    "command": "editor.action.inlineSuggest.hide",
                                      "when": "inlineSuggestionVisible" },
 { "key": "ctrl+[",                "command": "editor.action.selectEditor",
                                      "when": "stickyScrollFocused" },
@@ -58,9 +61,9 @@
                                      "when": "isReadingLineWithInlayHints" },
 { "key": "ctrl+[",                "command": "notebook.cell.chat.discard",
                                      "when": "inlineChatFocused && notebookCellChatFocused && !notebookCellEditorFocused && !notebookChatUserDidEdit" },
-{ "key": "ctrl+[",                "command": "search.action.focusQueryEditorWidget",
-                                     "when": "inSearchEditor" },
-{ "key": "ctrl+[",                "command": "settings.action.clearSearchResults",
+{
+    "key": "ctrl+[",
+    "command": "settings.action.clearSearchResults",
                                      "when": "inSettingsEditor && inSettingsSearch" },
 { "key": "ctrl+[",                "command": "welcome.goBack",
                                      "when": "inWelcome && activeEditor == 'gettingStartedPage'" },
@@ -149,6 +152,11 @@
                                      "when": "terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible" },
 { "key": "ctrl+[",                "command": "notebook.cell.quitEdit",
                                      "when": "notebookEditorFocused && notebookOutputFocused" },
+    {
+        "key": "ctrl+[",
+        "command": "notebook.cell.quitEdit",
+        "when": "notebookEditorFocused && notebookCellEditorFocused"
+    },
 { "key": "ctrl+[",                "command": "editor.closeCallHierarchy",
                                      "when": "callHierarchyVisible && !config.editor.stablePeek" },
 { "key": "ctrl+[",                "command": "editor.closeTypeHierarchy",
@@ -190,5 +198,26 @@
 { "key": "ctrl+[",                "command": "hideCodeActionWidget",
                                      "when": "codeActionMenuVisible" },
 { "key": "ctrl+[",                "command": "diffEditor.exitCompareMove",
-                                     "when": "comparingMovedCode" }
+                                    "when": "comparingMovedCode"
+                                },
+                                {
+                                    "key": "escape",
+                                    "command": "-notebook.cell.quitEdit",
+                                    "when": "inputFocus && notebookEditorFocused && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !inlineChatFocused"
+                                },
+                                {
+                                    "key": "escape",
+                                    "command": "-notebook.cell.quitEdit",
+                                    "when": "notebookEditorFocused && notebookOutputFocused"
+                                },
+                                {
+                                    "key": "ctrl+[",
+                                    "command": "-editor.action.outdentLines",
+                                    "when": "editorTextFocus && !editorReadonly"
+                                },
+                                {
+                                    "key": "ctrl+k ctrl+[",
+                                    "command": "-editor.foldRecursively",
+                                    "when": "editorTextFocus && foldingEnabled"
+                                }
 ]

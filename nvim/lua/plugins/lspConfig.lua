@@ -3,7 +3,7 @@ return {
 		"williamboman/mason.nvim",
 		lazy = false,
 		config = function()
-			require("mason").setup({ ensure_installed = { "eslint_d", "erb_lint" , "cpplint", "codelldb"} })
+			require("mason").setup({ ensure_installed = { "eslint_d", "erb_lint" , "cpplint"} })
 		end,
 	},
 	{

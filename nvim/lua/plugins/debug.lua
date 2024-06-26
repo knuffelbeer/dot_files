@@ -1,15 +1,16 @@
 return {
-	-- {
-	-- 	"jay-babu/mason-nvim-dap.nvim",
-	-- 	event = "VeryLazy",
-	-- 	dependencies = {
-	-- 		"williamboman/mason.nvim",
-	-- 		"mfussenegger/nvim-dap",
-	-- 	},
-	-- 	opts = {
-	-- 		handlers = {},
-	-- 	},
-	-- },
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		event = "VeryLazy",
+		ensure_installed = {"debugpy"},
+		dependencies = {
+			"williamboman/mason.nvim",
+			"mfussenegger/nvim-dap",
+		},
+		opts = {
+			handlers = {},
+		},
+	},
 	{
 		"mfussenegger/nvim-dap",
 		config = function()
@@ -25,8 +26,7 @@ return {
 					type = "gdb",
 					request = "launch",
 					program = function()
-						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/",
-							"file")
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 					end,
 					cwd = "${workspaceFolder}",
 					stopAtBeginningOfMainSubprogram = false,
@@ -63,6 +63,10 @@ return {
 			end)
 			vim.keymap.set("n", "<leader>so", function()
 				require("dap").step_over()
+			end)
+			vim.keymap.set("n", "<leader>dc", function()
+				require("dapui").close()
+				require("dap").close()
 			end)
 		end,
 	},

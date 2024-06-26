@@ -1,0 +1,9 @@
+{
+    "vscode-neovim.neovimClean": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "python.defaultInterpreterPath": "/home/knuffelbeer/.python_venvs/B",
+    "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+},
+"editor.cursorBlinking": "solid",
+}
