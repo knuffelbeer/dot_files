@@ -1,6 +1,4 @@
 #!/bin/zsh
-
-
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
@@ -12,7 +10,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export EDITOR="nvim"
 # Path to your oh-my-zsh installation.
-
 #export LUA_PATH="/home/knuffelbeer/.luarocks/lib/luarocks/rocks-5.1/magick/1.6.0-1/?.lua;;"
 #export LUA_CPATH="/home/knuffelbeer/.luarocks/lib/luarocks/rocks-5.1/magick/1.6.0-1/?.so;;"
 #ZSH=/usr/share/oh-my-zsh/
@@ -99,23 +96,27 @@ vimmiedepimmie() {
 }
 
 # Create an alias for the function
-alias vi='vimmiedepimmie'
+# alias vi='vimmiedepimmie'
 alias v='vimmiedepimmie'
 
 alias x="xplr"
 alias n="nvim"
 alias vim="nvim"
 alias c="cd"
+alias f="/home/knuffelbeer/bashScripts/fzf.sh"
+alias vi="/home/knuffelbeer/bashScripts/fzf.sh"
 
+# export VCPKG_ROOT=/home/knuffelbeer/vcpkg/vcpkg
+export PATH=$PATH:/home/knuffelbeer/vcpkg/
 # ~/.bashrc
 export PATH=$PATH:~/sc-im/src
 export PATH=$PATH:/home/knuffelbeer/.local/bin
 export PATH=$PATH:/usr/bin
-
- 
+alias code="code --enable-proposed-api ms-toolsai.jupyter"
 source $ZSH/oh-my-zsh.sh
-eval "$(zoxide init --cmd cd zsh)"
-
+# eval "$(zoxide init --cmd cd zsh)"
+bindkey              '^I'         menu-complete
+bindkey "$terminfo[kcbt]" reverse-menu-complete
 if [ -z "$SSH_AUTH_SOCK" ]; then
 	eval "$(ssh-agent)"
 fi
@@ -124,7 +125,11 @@ if [ -z "$TMUX" ]; then
 	tmux new -As knuffelbeer
 
 else
-	lolcat ~/.southpark
-	source /home/knuffelbeer/meesterSolutions/AlgorithmOfEverything/Jan/bin/activate
+	#lolcat ~/.southpark
+
+	# basename "$(pwd)" | lolcat
+	source /home/knuffelbeer/.python_venvs/B/bin/activate
+	basename "$(pwd)" | figlet -f small | cowthink -n -f bong | lolcat
+	#basename "$(pwd)" | cowthink -n -f kenny | lolcat
 fi
 set -o vi
