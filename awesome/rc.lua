@@ -87,12 +87,14 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init("/home/knuffelbeer/.config/awesome/theme.lua")
-beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
+--beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 --gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/deadpool.jpg", 1)
+--gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortyred.jpg", 1)
 --gears.wallpaper.set("#000000")
 gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
---gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/towelie2.jpg", 1)
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/towelie2.jpg", 1)
 
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/kolibrios.png", 1)
 -- This is used later as the default terminal ad editor to run.
 math.randomseed(os.time())
 --terminal = "x-terminal-emulator"
@@ -139,7 +141,7 @@ awful.layout.layouts = {
 	--    awful.layout.suit.spiral,
 	--    awful.layout.suit.spiral.dwindle,
 	--    awful.layout.suit.max,
-	    --awful.layout.suit.max.fullscreen,
+	--awful.layout.suit.max.fullscreen,
 	--    awful.layout.suit.magnifier,
 	--    awful.layout.suit.corner.nw,
 	-- awful.layout.suit.corner.ne,
@@ -157,9 +159,9 @@ myawesomemenu = {
 			hotkeys_popup.show_help(nil, awful.screen.focused())
 		end,
 	},
-	{ "manual",      terminal .. " -e man awesome" },
+	{ "manual", terminal .. " -e man awesome" },
 	{ "edit config", editor_cmd .. " " .. awesome.conffile },
-	{ "restart",     awesome.restart },
+	{ "restart", awesome.restart },
 	{
 		"quit",
 		function()
@@ -261,7 +263,7 @@ awful.screen.connect_for_each_screen(function(s)
 	-- set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5"  ,"6", "7", "8","9","10" }, s, awful.layout.layouts[1])
+	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -412,7 +414,7 @@ globalkeys = gears.table.join(
 		awful.spawn(default_browser .. " --new-window https://canvas.uva.nl/")
 	end, { description = "Open canvas new window", group = "applications" }),
 
-	awful.key({ modkey}, "c", function()
+	awful.key({ modkey }, "c", function()
 		awful.spawn(default_browser .. " https://canvas.uva.nl/")
 	end, { description = "Open canvas same window", group = "applications" }),
 	awful.key({ modkey, "Shift" }, "g", function()
@@ -458,8 +460,7 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Control" }, "k", function()
 		awful.screen.focus_relative(-1)
 	end, { description = "focus the previous screen", group = "screen" }),
-	awful.key({ modkey }, "u", awful.client.urgent.jumpto,
-		{ description = "jump to urgent client", group = "client" }),
+	awful.key({ modkey }, "u", awful.client.urgent.jumpto, { description = "jump to urgent client", group = "client" }),
 	awful.key({ modkey }, "Tab", function()
 		awful.client.focus.history.previous()
 		if client.focus then
@@ -565,7 +566,6 @@ clientkeys = gears.table.join(
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 10 do
-
 	local tagnum = i
 	if i == 10 then
 		tagnum = 0
@@ -638,6 +638,14 @@ awful.rules.rules = {
 		{ rule = { class = "Blueman-manager" }, properties = { screen = 1, tag = "5" } },
 	},
 	{
+		rule = { class = "Bullet Standalone Example" },
+		properties = { screen = 1, tag = "3" },
+	},
+	{
+		rule = { class = "App_BasicExample" },
+		properties = { screen = 1, tag = "3" },
+	},
+	{
 		rule = { class = "ogreBullet" },
 		properties = { screen = 1, tag = "3" },
 	},
@@ -646,7 +654,7 @@ awful.rules.rules = {
 	-- {rule = {class="qutebrowser"},
 	-- properties = {screen=1, tag="2"}
 	-- },
-	{ rule = { class = "Polybar" },     properties = { below = true } },
+	{ rule = { class = "Polybar" }, properties = { below = true } },
 	-- All clients will match this rule.
 	{
 		rule = {},

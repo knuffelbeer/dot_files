@@ -18,7 +18,9 @@ return {
 				--null_ls.builtins.diagnostics.eslint_d,
 				--null_ls.builtins.diagnostics.shellcheck,
 				null_ls.builtins.formatting.black,
+				null_ls.builtins.formatting.cmakelang,
 
+			--null_ls.builtins.diagnostics.cmakelint,
 				null_ls.builtins.formatting.isort,
 				null_ls.builtins.formatting.shellharden,
 				--null_ls.builtins.formatting.ast_grep,

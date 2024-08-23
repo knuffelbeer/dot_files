@@ -63,6 +63,7 @@ return {
 			require("telescope").load_extension("ui-select")
 		end,
 	},
+
 	{
 		"ThePrimeagen/harpoon",
 		config = function()

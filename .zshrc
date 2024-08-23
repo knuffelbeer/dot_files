@@ -98,21 +98,25 @@ vimmiedepimmie() {
 # Create an alias for the function
 # alias vi='vimmiedepimmie'
 alias v='vimmiedepimmie'
+alias wi='nmtui'
 
 alias x="xplr"
+alias hdmi="/home/knuffelbeer/bashScripts/hdmi.sh"
 alias n="nvim"
 alias vim="nvim"
 alias c="cd"
 alias f="/home/knuffelbeer/bashScripts/fzf.sh"
 alias vi="/home/knuffelbeer/bashScripts/fzf.sh"
 
+alias scim="sc-im"
 # export VCPKG_ROOT=/home/knuffelbeer/vcpkg/vcpkg
 export PATH=$PATH:/home/knuffelbeer/vcpkg/
 # ~/.bashrc
 export PATH=$PATH:~/sc-im/src
+export PATH=$PATH:~/blender-4.1.1-linux-x64
 export PATH=$PATH:/home/knuffelbeer/.local/bin
 export PATH=$PATH:/usr/bin
-alias code="code --enable-proposed-api ms-toolsai.jupyter"
+# alias code="code --enable-proposed-api ms-toolsai.jupyter"
 source $ZSH/oh-my-zsh.sh
 # eval "$(zoxide init --cmd cd zsh)"
 bindkey              '^I'         menu-complete
@@ -129,7 +133,8 @@ else
 
 	# basename "$(pwd)" | lolcat
 	source /home/knuffelbeer/.python_venvs/B/bin/activate
-	basename "$(pwd)" | figlet -f small | cowthink -n -f bong | lolcat
+	basename "$(pwd)" | figlet -f small |  lolcat
+	#cowthink -n -f bong.cow |
 	#basename "$(pwd)" | cowthink -n -f kenny | lolcat
 fi
 set -o vi

@@ -22,4 +22,3 @@ augroup END
 
 ]])
 vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
--- let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'

@@ -26,16 +26,19 @@ case "$var1" in
         libreoffice "$var1" &
         ;;
     *.xlsx)
-        sc-im "$var1"
+        libreoffice "$var1"
         ;;
     *.ods)
-        sc-im "$var1"
+        libreoffice "$var1"
         ;;
     *.jpg)
         feh "$var1" &
         ;;
     *.jpeg)
         feh "$var1" &
+        ;;
+    *.csv)
+        libreoffice "$var1" &
         ;;
     *.png)
         feh "$var1" &
@@ -44,7 +47,3 @@ case "$var1" in
         nvim "$var1"  # Use Neovim as default for all other files.
         ;;
 esac
-
-# Optional: Wait for the foreground process to exit before the script terminates.
-# wait
-

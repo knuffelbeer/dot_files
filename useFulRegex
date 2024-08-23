@@ -1,0 +1,10 @@
+
+# underscore separation to camelcase.
+:%s/\(\w\)_\(\w\)/\u\2
+
+# Change brackets:
+:'<,'>s/(\(.*\))/{\1}
+
+# change type* varName = new type(input) to std::unique_ptr<type> varName 
+# = std::make_unique<type>(input);
+:'<,'>s/	*\(\w*\)\* \(\w*\) *= * new *.*(\(\w*\));/		std::unique_ptr<\1> \2 = std::make_unique<\1>(\3);
