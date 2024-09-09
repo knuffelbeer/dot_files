@@ -132,21 +132,21 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
 	--    awful.layout.suit.floating,
-	awful.layout.suit.tile,
-	--    awful.layout.suit.tile.left,
-	--awful.layout.suit.fair,
+	--    awful.layout.suit.tile,
+	      awful.layout.suit.tile.left,
+	--    awful.layout.suit.fair,
 	--    awful.layout.suit.tile.bottom,
 	--    awful.layout.suit.tile.top,
 	--    awful.layout.suit.fair.horizontal,
 	--    awful.layout.suit.spiral,
 	--    awful.layout.suit.spiral.dwindle,
 	--    awful.layout.suit.max,
-	--awful.layout.suit.max.fullscreen,
+	--		awful.layout.suit.max.fullscreen,
 	--    awful.layout.suit.magnifier,
 	--    awful.layout.suit.corner.nw,
-	-- awful.layout.suit.corner.ne,
-	-- awful.layout.suit.corner.sw,
-	-- awful.layout.suit.corner.se,
+	-- 		awful.layout.suit.corner.ne,
+	-- 		awful.layout.suit.corner.sw,
+	-- 		awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -336,8 +336,9 @@ awful.screen.connect_for_each_screen(function(s)
 	-- }
 end)
 -- }}}
-qutebrowser_darkmode = "firefox"
-default_browser = "firefox"
+qutebrowser_darkmode = "zen-browser"
+default_browser = "zen-browser"
+local startup_site = "https://freemoviesfull.cc/tv/watch-trailer-park-boys-full-38667"
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
 	awful.button({}, 3, function()
@@ -425,7 +426,7 @@ globalkeys = gears.table.join(
 	end, { description = "Go to Bluetooth Settings", group = "applications" }),
 
 	awful.key({ modkey }, "g", function()
-		awful.spawn(qutebrowser_darkmode)
+		awful.spawn(default_browser .. " " .. startup_site)
 	end, { description = "Open Google Chrome", group = "applications" }),
 	awful.key({ modkey }, "w", function()
 		awful.spawn(default_browser .. " https://web.whatsapp.com/")
@@ -435,7 +436,7 @@ globalkeys = gears.table.join(
 	end, { description = "Open spotifOpen spotify" }),
 
 	awful.key({ modkey, "Shift" }, "f", function()
-		awful.spawn(default_browser .. " https://fmoviesz.to/tv/south-park-j2ywy")
+		awful.spawn(default_browser .. " https://freemoviesfull.cc/")
 	end, { description = "Open fmovies", group = "applications" }),
 	-- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
 	--           {description="show help", group="awesome"}),
@@ -730,7 +731,7 @@ local screen = awful.screen.focused()
 -- screen.mywibox.visible = not screen.mywibox.visible
 -- local tag = screen.tags[3]
 awful.util.spawn("alacritty")
-awful.util.spawn("firefox", { tag = "2" })
+awful.util.spawn(default_browser .. " " .. startup_site, { tag = "2" })
 -- battery warning
 -- created by bpdp
 
