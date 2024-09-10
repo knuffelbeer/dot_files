@@ -98,7 +98,9 @@ gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-par
 -- This is used later as the default terminal ad editor to run.
 math.randomseed(os.time())
 --terminal = "x-terminal-emulator"
-terminal = "/usr/bin/alacritty"
+--terminal = "/usr/bin/alacritty"
+terminal = "/sbin/kitty"
+
 
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
@@ -471,7 +473,7 @@ globalkeys = gears.table.join(
 
 	-- Standard program
 	awful.key({ modkey }, "Return", function()
-		awful.spawn("alacritty")
+		awful.spawn(terminal)
 	end, { description = "open a terminal", group = "launcher" }),
 	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
@@ -510,7 +512,7 @@ globalkeys = gears.table.join(
 
 	-- Prompt
 	awful.key({ modkey }, "r", function()
-		awful.spawn("rofi -show drun -terminal alacritty")
+		awful.spawn("rofi -show drun -terminal terminal")
 	end, { description = "run prompt", group = "launcher" }),
 	awful.key({ modkey, "Control" }, "b", function()
 		local s = awful.screen.focused()
@@ -730,7 +732,7 @@ end)
 local screen = awful.screen.focused()
 -- screen.mywibox.visible = not screen.mywibox.visible
 -- local tag = screen.tags[3]
-awful.util.spawn("alacritty")
+awful.util.spawn(terminal)
 awful.util.spawn(default_browser .. " " .. startup_site, { tag = "2" })
 -- battery warning
 -- created by bpdp

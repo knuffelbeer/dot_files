@@ -35,6 +35,13 @@ return {
 			vim.keymap.set("n", "<leader>mc", ":MoltenEvaluateCell<CR>", { noremap = true })
 			vim.keymap.set("n", "<leader>mm", ":MoltenEvaluateLine<CR>", { noremap = true })
 			vim.keymap.set("n", "<leader>e", ":MoltenEvaluateOperator<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>mn", ":MoltenNext<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>mp", ":MoltenPrev<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>mS", ":MoltenShowOutput<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>mH", ":MoltenHideOutput<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>me", ":noautocmd MoltenEnterOutput<CR>")
+			vim.keymap.set("n", "<leader>mx", ":MoltenInterrupt<CR>")
+			vim.keymap.set("n", "<leader>md", ":MoltenDeinit<CR>")
 		end,
 	},
 	--{
