@@ -4,7 +4,7 @@ return {
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			-- A list of parser names, or "all" (the five listed parsers should always be installed)
-			ensure_installed = { "c", "lua" },
+			ensure_installed = { "c", "lua", "latex" },
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
 			sync_install = false,
@@ -15,7 +15,7 @@ return {
 
 			highlight = {
 				enable = true,
-				disable = { "markdown_inline", "markdown" },
+				disable = { "markdown_inline", "markdown"},
 				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 				-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
 				-- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -24,12 +24,12 @@ return {
 			},
 		})
 
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = "tex",
-			callback = function(args)
-				vim.treesitter.start(args.buf, "latex")
-				vim.bo[args.buf].syntax = "on" -- only if additional legacy syntax is needed
-			end,
-		})
+		-- vim.api.nvim_create_autocmd("FileType", {
+		-- 	pattern = "tex",
+		-- 	callback = function(args)
+		-- 		vim.treesitter.start(args.buf, "latex")
+		-- 		vim.bo[args.buf].syntax = "on" -- only if additional legacy syntax is needed
+		-- 	end,
+		-- })
 	end,
 }

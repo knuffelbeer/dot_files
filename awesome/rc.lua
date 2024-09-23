@@ -92,6 +92,7 @@ end
 --gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortyred.jpg", 1)
 --gears.wallpaper.set("#000000")
 gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
+--gears.wallpaper.maximized("/home/knuffelbeer/meester_solutions/meestersolutions.jpg", 1)
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/towelie2.jpg", 1)
 
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/kolibrios.png", 1)
@@ -100,7 +101,6 @@ math.randomseed(os.time())
 --terminal = "x-terminal-emulator"
 --terminal = "/usr/bin/alacritty"
 terminal = "/sbin/kitty"
-
 
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
@@ -135,7 +135,7 @@ modkey = "Mod4"
 awful.layout.layouts = {
 	--    awful.layout.suit.floating,
 	--    awful.layout.suit.tile,
-	      awful.layout.suit.tile.left,
+	awful.layout.suit.tile.left,
 	--    awful.layout.suit.fair,
 	--    awful.layout.suit.tile.bottom,
 	--    awful.layout.suit.tile.top,
@@ -368,6 +368,22 @@ globalkeys = gears.table.join(
 	awful.key({ "Shift" }, "XF86MonBrightnessUp", function()
 		Gamma = AdjustColorIdx(Gamma, true)
 		awful.spawn(ChooseColor(Gamma, "eDP-1", CurrentBrightness))
+	end),
+	awful.key({ modkey, "Shift" }, "y", function()
+		local sites = {
+			"google.com",
+			"youtube.com",
+			"facebook.com",
+			"instagram.com",
+			"x.com",
+			"whatsapp.com",
+			"wikipedia.org",
+			"yahoo.com",
+			"reddit.com",
+		}
+		for i = 1, #sites do
+			awful.spawn("zen-browser www." .. " " .. sites[i])
+		end
 	end),
 	awful.key({ modkey, "Shift" }, "r", function()
 		awful.spawn("rofi -show filebrowser")

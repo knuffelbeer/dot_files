@@ -1,5 +1,10 @@
 return {
 	{
+		"GCBallesteros/jupytext.nvim",
+		config = 	true	-- Depending on your nvim distro or config you may need to make the loading not lazy
+		-- lazy=false,
+	},
+	{
 		"3rd/image.nvim",
 
 		config = function()
@@ -7,7 +12,7 @@ return {
 			package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
 			package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
 
--- lazy snippet
+			-- lazy snippet
 			require("image").setup({
 
 				backend = "kitty", -- Kitty will provide the best experience, but you need a compatible terminal
@@ -32,7 +37,7 @@ return {
 			vim.g.molten_output_win_max_height = 20
 			vim.keymap.set("n", "<leader>mi", ":MoltenInit python3<CR>", { noremap = true })
 			vim.keymap.set("v", "<leader>mv", "<esc>:MoltenEvaluateVisual<CR>", { noremap = true })
-			vim.keymap.set("n", "<leader>mc", ":MoltenEvaluateCell<CR>", { noremap = true })
+			vim.keymap.set("n", "<leader>mc", ":MoltenReevaluateCell<CR>", { noremap = true })
 			vim.keymap.set("n", "<leader>mm", ":MoltenEvaluateLine<CR>", { noremap = true })
 			vim.keymap.set("n", "<leader>e", ":MoltenEvaluateOperator<CR>", { noremap = true })
 			vim.keymap.set("n", "<leader>mn", ":MoltenNext<CR>", { noremap = true })
