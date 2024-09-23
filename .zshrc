@@ -109,6 +109,8 @@ alias f="/home/knuffelbeer/bashScripts/fzf.sh"
 alias vi="/home/knuffelbeer/bashScripts/fzf.sh"
 
 alias scim="sc-im"
+alias dirBase='basename "$(pwd)" | figlet -f small |  lolcat'
+alias clear="clear && dirBase"
 # export VCPKG_ROOT=/home/knuffelbeer/vcpkg/vcpkg
 export PATH=$PATH:/home/knuffelbeer/vcpkg/
 # ~/.bashrc
