@@ -1,9 +1,13 @@
 #!/bin/bash
 
 # A kind off hacky way to get workspace-like funcionality for windows in your 
-# session. It doesn't make you define windows in order of their index, which
-# allows for running programs in set windows, and thus always mapping a program
-# to a window. also you can have custom configuration for sessions. 
+# session. It doesn't make you define windows in order of their index. 
+# As in, you can always jump to windo 9 even if 2-8 aren't created yet. This
+# allows for running certain programs in set windows.
+# It also allows for custom configurations for certain directories,
+# so you can have subdirectories or certain programs open automatically on set 
+# windows. Usage: map each index running this script with that number in your 
+# .tmux.conf and adjust the switch statement with the directories to your liking.
 
 
 TARGET_INDEX=$1
@@ -22,11 +26,14 @@ case "$CURRENT_SESSION"  in
 		    tmux select-window -t "$CURRENT_SESSION:$TARGET_INDEX"
 		else
 			case $TARGET_INDEX in
-				8)
-					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd knobDistribution && nvim . && zsh"
+				# 2)
+				# 	tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd knobDistribution && nvim . && zsh"
+				# 	;;
+				2) # promt for a file int the knobDistribution directory
+					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'cd knobDistribution; file=\$(fzf); if [ -n \"\$file\" ]; then nvim \"\$file\"; else nvim .; fi'"
 					;;
-				0)
-					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd results && zsh"
+				10)
+					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd /home/knuffelbeer/meester_solutions/AlgorithmOfEverything/results/3ModelsMAPE && zsh"
 					;;
 				*)
 					tmux new-window -t "$TARGET_INDEX" -n  "$CURRENT_SESSION:$TARGET_INDEX"
@@ -36,19 +43,47 @@ case "$CURRENT_SESSION"  in
 		fi
 			;;
 		
-	"knuffelbeer")
+	"nvim")
 		if tmux list-windows | grep -q "^$TARGET_INDEX:"; then
 		    tmux select-window -t "$CURRENT_SESSION:$TARGET_INDEX"
 		else
 			case $TARGET_INDEX in
 				2)
-					tmux new-window -t 2 -n "$CURRENT_SESSION:2"  "vim ."
+
+					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "nvim /home/knuffelbeer/.config/nvim/init.lua && zsh"
+					;;
+				#9)
+				#	tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd /home/knuffelbeer/.config/nvim/lua/ && zsh"
+				#	;;
+				9) # Now when you navigate to window 2 it prompts for a file with fzf and opens it up in neovim. 
+					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'cd /home/knuffelbeer/.config/nvim/lua/; file=\$(fzf); if [ -n \"\$file\" ]; then nvim \"\$file\"; else nvim .; fi'"
+					;;
+				# 10)
+				# 	tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd /home/knuffelbeer/.config/nvim/lua/plugins && zsh"
+				# 	;;
+				10) # Now when you navigate to window 2 it prompts for a file with fzf and opens it up in neovim. 
+					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'cd /home/knuffelbeer/.config/nvim/lua/plugins; file=\$(fzf); if [ -n \"\$file\" ]; then nvim \"\$file\"; else nvim .; fi'"
+					;;
+				*)
+					tmux new-window -t "$TARGET_INDEX" -n  "$CURRENT_SESSION:$TARGET_INDEX"
+					;;
+			esac
+
+		fi
+			;;
+	"knuffelbeer")
+		if tmux list-windows | grep -q "^$TARGET_INDEX:"; then
+		    tmux select-window -t "$CURRENT_SESSION:$TARGET_INDEX"
+		else
+			case $TARGET_INDEX in
+				2) # Now when you navigate to window 2 it prompts for a file with fzf and opens it up in neovim. 
+					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'file=\$(fzf); if [ -n \"\$file\" ]; then nvim \"\$file\"; else nvim .; fi'"
 					;;
 				3)
 					tmux new-window -t 3 -n "$CURRENT_SESSION:3"  "gdb ."
 					;;
-				7)
-					tmux new-window -t "$TARGET_INDEX" -n  "$CURRENT_SESSION:$7" "htop"
+				7) # Now htop is always at window 7 no matter which session you're in.
+					tmux new-window -t "$TARGET_INDEX" -n  "$CURRENT_SESSION:$7" "nvim $(fzf)"
 					;;
 				*)
 					tmux new-window -t "$TARGET_INDEX" -n  "$CURRENT_SESSION:$TARGET_INDEX"
@@ -64,8 +99,15 @@ case "$CURRENT_SESSION"  in
 		    tmux select-window -t "$CURRENT_SESSION:$TARGET_INDEX"
 			else
 			case $TARGET_INDEX in
-				7) # Now htop is always at window 7 no matter which session you're in.
-					tmux new-window -t "$TARGET_INDEX" -n  "$CURRENT_SESSION:$7" "htop"
+				2) # Now when you navigate to window 2 it prompts for a file with fzf and opens it up in neovim. 
+					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'file=\$(fzf); if [ -n \"\$file\" ]; then nvim \"\$file\"; else nvim .; fi'"
+					;;
+				4)
+					if [ -d "build" ]; then
+										tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "cd build"
+					else
+						figlet "no build directory found."
+					fi
 					;;
 				*)
 					tmux new-window -t "$TARGET_INDEX" -n  "$CURRENT_SESSION:$TARGET_INDEX"
