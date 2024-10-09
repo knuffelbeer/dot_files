@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Script from Primagen. I only changed the maxdepth I think
 
 if [[ $# -eq 1 ]]; then
     selected=$1
