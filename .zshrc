@@ -18,8 +18,8 @@ export EDITOR="nvim"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="mh"
- ZSH_THEME="kafeitu"
-# ZSH_THEME="jbergantine"
+# ZSH_THEME="kafeitu"
+ ZSH_THEME="jbergantine"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
