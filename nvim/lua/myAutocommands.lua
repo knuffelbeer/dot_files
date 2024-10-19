@@ -33,27 +33,27 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 	group = group,
 	pattern = "*.tex",
 })
-
-local text_to_insert_2 = {
-	"import numpy as np",
-	"import torch",
-	"import pandas as pd",
-	"import matplotlib.pyplot as plt",
-	"",
-	'if __name__ == "__main__":',
-	"  ",
-}
-
-vim.api.nvim_create_autocmd("BufNewFile", {
-	callback = function(table)
-		vim.fn.append(0, text_to_insert_2)
-		vim.fn.append(0, "# " .. table.file .. " created by Beer Meester 13171429")
-		vim.api.nvim_win_set_cursor(0, { 8, 1 })
-		vim.cmd([[startinsert]])
-	end,
-	group = group,
-	pattern = "*.py",
-})
+-- 
+-- local text_to_insert_2 = {
+-- 	"import numpy as np",
+-- 	"import torch",
+-- 	"import pandas as pd",
+-- 	"import matplotlib.pyplot as plt",
+-- 	"",
+-- 	'if __name__ == "__main__":',
+-- 	"  ",
+-- }
+-- 
+-- vim.api.nvim_create_autocmd("BufNewFile", {
+-- 	callback = function(table)
+-- 		vim.fn.append(0, text_to_insert_2)
+-- 		vim.fn.append(0, "# " .. table.file .. " created by Beer Meester 13171429")
+-- 		vim.api.nvim_win_set_cursor(0, { 8, 1 })
+-- 		vim.cmd([[startinsert]])
+-- 	end,
+-- 	group = group,
+-- 	pattern = "*.py",
+-- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()

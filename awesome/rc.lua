@@ -92,9 +92,10 @@ end
 --gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortyred.jpg", 1)
 --gears.wallpaper.set("#000000")
 gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
---gears.wallpaper.maximized("/home/knuffelbeer/meester_solutions/meestersolutions.jpg", 1)
--- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/towelie2.jpg", 1)
-
+--gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/sincity3.png", 1)
+--gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/sincity3.png", 1)
+--gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortydrank.jpg")
+--gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandMortySetrren.png", 1)
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/kolibrios.png", 1)
 -- This is used later as the default terminal ad editor to run.
 math.randomseed(os.time())

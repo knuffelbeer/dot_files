@@ -133,9 +133,10 @@ if [ -z "$TMUX" ]; then
 else
 	#lolcat ~/.southpark
 
-	# basename "$(pwd)" | lolcat
+	# | lolcat
 	source /home/knuffelbeer/.python_venvs/B/bin/activate
 	basename "$(pwd)" | figlet -f small |  lolcat
+	#colorscript -r
 	#cowthink -n -f bong.cow |
 	#basename "$(pwd)" | cowthink -n -f kenny | lolcat
 fi

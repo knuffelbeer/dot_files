@@ -40,7 +40,7 @@ return {
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 			cmp.setup({
-				preselect = cmp.PreselectMode.None,
+				preselect = cmp.PreselectMode.Item,
 				snippet = {
 					expand = function(args)
 						require("luasnip").lsp_expand(args.body)
@@ -51,7 +51,7 @@ return {
 					-- documentation = cmp.config.window.bordered(),
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<C-n>"] = cmp.mapping(function(fallback)--<Tab>
+					["<C-n>"] = cmp.mapping(function(fallback) --<Tab>
 						if cmp.visible() then
 							cmp.select_next_item()
 							-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
@@ -64,7 +64,7 @@ return {
 							fallback()
 						end
 					end, { "i", "s" }),
-					["<C-p>"] = cmp.mapping(function(fallback)--<S-Tab>
+					["<C-p>"] = cmp.mapping(function(fallback) --<S-Tab>
 						if cmp.visible() then
 							cmp.select_prev_item()
 						elseif luasnip.jumpable(-1) then
@@ -74,15 +74,12 @@ return {
 						end
 					end, { "i", "s" }),
 
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<C-y>"] = cmp.mapping(
+						cmp.mapping.confirm({ behaviour = cmp.ConfirmBehavior.insert, select = true }),
+						{ "i", "c" }
+					),
+					["<CR>"] = cmp.mapping.confirm({ select = false --[[no autocomplete]]}),
 				}),
-				--}),
-				--sources = {
-				--	{ name = "nvim_lsp" },
-				--	{ name = "path" },
-				--	{ name = "luasnip" }, -- For luasnip users.
-				--	{ name = "buffer" },
-				--},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "path" },
@@ -90,6 +87,58 @@ return {
 					{ name = "buffer" },
 				}),
 			})
+			local ls = require("luasnip")
+
+			-- TODO: Think about `locally_jumpable`, etc.
+			-- Might be nice to send PR to luasnip to use filters instead for these functions ;)
+
+			vim.snippet.expand = ls.lsp_expand
+
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.snippet.active = function(filter)
+				filter = filter or {}
+				filter.direction = filter.direction or 1
+
+				if filter.direction == 1 then
+					return ls.expand_or_jumpable()
+				else
+					return ls.jumpable(filter.direction)
+				end
+			end
+
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.snippet.jump = function(direction)
+				if direction == 1 then
+					if ls.expandable() then
+						return ls.expand_or_jump()
+					else
+						return ls.jumpable(1) and ls.jump(1)
+					end
+				else
+					return ls.jumpable(-1) and ls.jump(-1)
+				end
+			end
+			vim.snippet.stop = ls.unlink_current
+			for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/snippets/*.lua", true)) do
+				loadfile(ft_path)()
+			end
+			vim.keymap.set({ "i", "s" }, "<c-k>", function()
+				return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
+			end, { silent = true })
+
+			vim.keymap.set({ "i", "s" }, "<c-j>", function()
+				return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
+			end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<c-h>", function()
+				if ls.choice_active() then
+					ls.change_choice(1)
+				end
+			end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<c-l>", function()
+				if ls.choice_active() then
+					ls.change_choice(1)
+				end
+			end, { silent = true })
 		end,
 	},
 	--{
