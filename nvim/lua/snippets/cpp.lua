@@ -14,10 +14,12 @@ end
 
 ls.add_snippets("cpp", {
 	s("pr", fmt("std::cout << {} << '\\n';\n{}", { i(1), i(2) })),
-	s("sp", fmt("std::unique_ptr<{}> {} = str::make_unique<{}>({});\n{}", { type_node(1), i(2), rep(1), i(3), i(4) })),
+	s("sp", fmt("std::unique_ptr<{}> {} = std::make_unique<{}>({});\n{}", { type_node(1), i(2), rep(1), i(3), i(4) })),
 	s("sv", fmt("std::vector<{}> {};\n{}", { type_node(1), i(2, "vec"), i(3) })),
+	s("sV", fmt("std::vector<{}> {} = {};\n{}", { type_node(1), i(2, "vec"), i(3), i(4) })),
 	s("sa", fmt("std::array<{}> {};\n{}", { type_node(1), i(2, "arr"), i(3) })),
 	s("df", fmt("#define {}", { i(1) })),
 	s("im", fmt("int main {{\n {}\n return 0;\n }}", { i(1) })),
+
 	-- st is int main include iostream
 })
