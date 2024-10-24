@@ -8,6 +8,7 @@ local awful = require("awful")
 -- local battery_widget = require("battery-widget")
 require("brightness")
 Gamma = 10
+local spotifyOpen = false
 CurrentBrightness = 1
 GammaHdmi = 10
 CurrentBrightnessHdmi = 1
@@ -162,9 +163,9 @@ myawesomemenu = {
 			hotkeys_popup.show_help(nil, awful.screen.focused())
 		end,
 	},
-	{ "manual", terminal .. " -e man awesome" },
+	{ "manual",      terminal .. " -e man awesome" },
 	{ "edit config", editor_cmd .. " " .. awesome.conffile },
-	{ "restart", awesome.restart },
+	{ "restart",     awesome.restart },
 	{
 		"quit",
 		function()
@@ -591,17 +592,37 @@ for i = 1, 10 do
 		tagnum = 0
 	end
 
+	if i == 5 then
+		globalkeys = gears.table.join(
+			globalkeys,
+			-- open Spotify if it's not open and I move to tag 5 
+			awful.key({ modkey }, tagnum, function()
+				if spotifyOpen == false then
+					awful.spawn("spotify")
+					spotifyOpen = true
+				end
+				local screen = awful.screen.focused()
+				local tag = screen.tags[i]
+				if tag then
+					tag:view_only()
+				end
+			end, { description = "view tag #" .. i, group = "tag" })
+		)
+	else
+		globalkeys = gears.table.join(
+			globalkeys,
+			-- View tag only.
+			awful.key({ modkey }, tagnum, function()
+				local screen = awful.screen.focused()
+				local tag = screen.tags[i]
+				if tag then
+					tag:view_only()
+				end
+			end, { description = "view tag #" .. i, group = "tag" })
+		)
+	end
 	globalkeys = gears.table.join(
 		globalkeys,
-		-- View tag only.
-
-		awful.key({ modkey }, tagnum, function()
-			local screen = awful.screen.focused()
-			local tag = screen.tags[i]
-			if tag then
-				tag:view_only()
-			end
-		end, { description = "view tag #" .. i, group = "tag" }),
 		-- Toggle tag display.?
 		awful.key({ modkey, "Control" }, i, function()
 			local screen = awful.screen.focused()
@@ -674,7 +695,7 @@ awful.rules.rules = {
 	-- {rule = {class="qutebrowser"},
 	-- properties = {screen=1, tag="2"}
 	-- },
-	{ rule = { class = "Polybar" }, properties = { below = true } },
+	{ rule = { class = "Polybar" },     properties = { below = true } },
 	-- All clients will match this rule.
 	{
 		rule = {},
