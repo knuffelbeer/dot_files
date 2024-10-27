@@ -22,6 +22,9 @@ case "$var1" in
     *.pptx)
         libreoffice "$var1" &
         ;;
+    *.odt)
+        libreoffice "$var1" &
+        ;;
     *.docx)
         libreoffice "$var1" &
         ;;

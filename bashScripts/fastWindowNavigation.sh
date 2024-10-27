@@ -28,27 +28,28 @@ selectDir(){
 case "$CURRENT_SESSION"  in
 # list here your directories that should have a custom commands mapped to
 # as a case with their custom configuration.
-	"AlgorithmOfEverything")
-		if tmux list-windows | grep -q "^$TARGET_INDEX:"; then
-		    tmux select-window -t "$CURRENT_SESSION:$TARGET_INDEX"
-		else
-			case $TARGET_INDEX in
-				# 2)
-				# 	tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd knobDistribution && nvim . && zsh"
-				# 	;;
-				2) # promt for a file int the knobDistribution directory
-					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'cd knobDistribution; file=\$(fzf); if [ -n \"\$file\" ]; then nvim \"\$file\"; else nvim .; fi'"
-					;;
-				10)
-					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd /home/knuffelbeer/meester_solutions/AlgorithmOfEverything/results/3ModelsMAPE && zsh"
-					;;
-				*)
-					selectDir
-					;;
-			esac
-
-		fi
-			;;
+# 	"AlgorithmOfEverything")
+# 
+# 		if tmux list-windows | grep -q "^$TARGET_INDEX:"; then
+# 		    tmux select-window -t "$CURRENT_SESSION:$TARGET_INDEX"
+# 		else
+# 			case $TARGET_INDEX in
+# 				# 2)
+# 				# 	tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd knobDistribution && nvim . && zsh"
+# 				# 	;;
+# 				2) # promt for a file int the knobDistribution directory
+# 					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'cd knobDistribution; file=\$(fzf); if [ -n \"\$file\" ]; then nvim \"\$file\"; else nvim .; fi'"
+# 					;;
+# 				10)
+# 					tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX"  "cd /home/knuffelbeer/meester_solutions/AlgorithmOfEverything/results/3ModelsMAPE && zsh"
+# 					;;
+# 				*)
+# 					selectDir
+# 					;;
+# 			esac
+# 
+# 		fi
+# 			;;
 		
 	"nvim")
 		if tmux list-windows | grep -q "^$TARGET_INDEX:"; then
@@ -95,14 +96,6 @@ case "$CURRENT_SESSION"  in
 			else
 			  tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "zsh"
 			fi
-					;;
-				4)
-					if [ -d "build" ]; then
-										tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "cd build"
-					else
-						figlet "no build directory found."
-					fi
-
 					;;
 				*)
 					selectDir

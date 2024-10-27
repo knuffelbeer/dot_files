@@ -8,7 +8,11 @@ local awful = require("awful")
 -- local battery_widget = require("battery-widget")
 require("brightness")
 Gamma = 10
-local spotifyOpen = false
+local openedPrograms = {
+	spotify = false,
+	blueman = false,
+}
+
 CurrentBrightness = 1
 GammaHdmi = 10
 CurrentBrightnessHdmi = 1
@@ -597,9 +601,25 @@ for i = 1, 10 do
 			globalkeys,
 			-- open Spotify if it's not open and I move to tag 5 
 			awful.key({ modkey }, tagnum, function()
-				if spotifyOpen == false then
+				if openedPrograms["spotify"] == false then
 					awful.spawn("spotify")
-					spotifyOpen = true
+					openedPrograms["spotify"] = true
+				end
+				local screen = awful.screen.focused()
+				local tag = screen.tags[i]
+				if tag then
+					tag:view_only()
+				end
+			end, { description = "view tag #" .. i, group = "tag" })
+		)
+	elseif i == 10 then
+		globalkeys = gears.table.join(
+			globalkeys,
+			-- open Blueman if it's not open and I move to tag 5 
+			awful.key({ modkey }, tagnum, function()
+				if openedPrograms["blueman"] == false then
+					awful.spawn("blueman-manager")
+					openedPrograms["blueman"] = true
 				end
 				local screen = awful.screen.focused()
 				local tag = screen.tags[i]

@@ -26,7 +26,6 @@ vim.g.python3_host_prog = "/home/knuffelbeer/.python_venvs/B/bin/python3"
 require("lazy").setup("plugins")
 require("mappings")
 require("myAutocommands")
-require("netrw")
 vim.opt.colorcolumn = "80"
 -- Make stuff transparent
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -44,4 +43,3 @@ vim.opt.undofile = true
 -- vim.opt.scrolloff = 8
 vim.bo.shiftwidth = 2
 vim.cmd("set tabstop=2")
-

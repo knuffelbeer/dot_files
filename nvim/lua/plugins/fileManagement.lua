@@ -1,5 +1,40 @@
 return {
 	{
+		"prichrd/netrw.nvim",
+		config = function()
+			require("netrw").setup({
+				-- File icons to use when `use_devicons` is false or if
+				-- no icon is found for the given file type.
+				icons = {
+					symlink = "",
+					directory = "",
+					file = "",
+				},
+				-- Uses mini.icon or nvim-web-devicons if true, otherwise use the file icon specified above
+				use_devicons = true,
+				mappings = {
+					-- Function mappings receive an object describing the node under the cursor
+					["<CR>"] = function()
+						local filename = vim.fn.expand("%:p:h") .. "/" .. vim.fn.expand("<cfile>")
+						local file_extension = vim.fn.fnamemodify(filename, ":e")
+						if file_extension == "pdf" or file_extension == "jpg" or file_extension == "png" then
+							vim.cmd("silent :!okular " .. filename .. " &")
+						elseif file_extension == "odt" or file_extension == "docx" or file_extension == "xlsx" then
+							vim.cmd("silent :!libreoffice " .. filename .. " &")
+						elseif file_extension == '' then
+							vim.cmd("Lexplore " .. filename)
+						else
+							vim.cmd("edit " .. filename)
+						end
+					end,
+					-- String mappings are executed as vim commands
+					["<Leader>p"] = " :echo 'hello world'<CR>",
+				},
+			})
+		end,
+		lazy = false,
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.5",
 		style = "borderless",
