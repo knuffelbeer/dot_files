@@ -18,7 +18,7 @@ fi
 CURRENT_SESSION=$(tmux display-message -p '#S')
 
 selectDir(){
-			if dirs=$(ls -d */ 2> /dev/null); then
+			if dirs=$(find . -mindepth 1 -maxdepth 4 -type d); then
 			  tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "bash -c 'file=\$(echo \"$dirs\"| fzf); if [ -n \"\$file\" ]; then cd \"\$file\" && zsh; else zsh ; fi'"
 			else
 			  tmux new-window -t "$TARGET_INDEX" -n "$CURRENT_SESSION:$TARGET_INDEX" "zsh"

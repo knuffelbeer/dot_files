@@ -93,14 +93,14 @@ end
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init("/home/knuffelbeer/.config/awesome/theme.lua")
 --beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
---gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/deadpool.jpg", 1)
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/deadpool.jpg", 1)
 --gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortyred.jpg", 1)
 --gears.wallpaper.set("#000000")
-gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
---gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/sincity3.png", 1)
---gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/sincity3.png", 1)
---gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortydrank.jpg")
---gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandMortySetrren.png", 1)
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/sincity3.png", 1)
+gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/archLinuxPaars.png", 1)
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortydrank.jpg")
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandMortySetrren.png", 1)
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/kolibrios.png", 1)
 -- This is used later as the default terminal ad editor to run.
 math.randomseed(os.time())
@@ -167,9 +167,9 @@ myawesomemenu = {
 			hotkeys_popup.show_help(nil, awful.screen.focused())
 		end,
 	},
-	{ "manual",      terminal .. " -e man awesome" },
+	{ "manual", terminal .. " -e man awesome" },
 	{ "edit config", editor_cmd .. " " .. awesome.conffile },
-	{ "restart",     awesome.restart },
+	{ "restart", awesome.restart },
 	{
 		"quit",
 		function()
@@ -344,7 +344,6 @@ awful.screen.connect_for_each_screen(function(s)
 	-- }
 end)
 -- }}}
-qutebrowser_darkmode = "zen-browser"
 default_browser = "zen-browser"
 local startup_site = "https://freemoviesfull.cc/tv/watch-trailer-park-boys-full-38667"
 -- {{{ Mouse bindings
@@ -464,6 +463,9 @@ globalkeys = gears.table.join(
 	end, { description = "Open fmovies", group = "applications" }),
 	-- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
 	--           {description="show help", group="awesome"}),
+	awful.key({ modkey, "Shift" }, "s", function()
+		awful.spawn("scrot -f /home/knuffelbeer/screenshots/%Y-%m-%d_$wx$h.png")
+	end, { description = "view previous", group = "tag" }),
 	awful.key({ modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
@@ -599,7 +601,7 @@ for i = 1, 10 do
 	if i == 5 then
 		globalkeys = gears.table.join(
 			globalkeys,
-			-- open Spotify if it's not open and I move to tag 5 
+			-- open Spotify if it's not open and I move to tag 5
 			awful.key({ modkey }, tagnum, function()
 				if openedPrograms["spotify"] == false then
 					awful.spawn("spotify")
@@ -615,7 +617,7 @@ for i = 1, 10 do
 	elseif i == 10 then
 		globalkeys = gears.table.join(
 			globalkeys,
-			-- open Blueman if it's not open and I move to tag 5 
+			-- open Blueman if it's not open and I move to tag 5
 			awful.key({ modkey }, tagnum, function()
 				if openedPrograms["blueman"] == false then
 					awful.spawn("blueman-manager")
@@ -715,7 +717,7 @@ awful.rules.rules = {
 	-- {rule = {class="qutebrowser"},
 	-- properties = {screen=1, tag="2"}
 	-- },
-	{ rule = { class = "Polybar" },     properties = { below = true } },
+	{ rule = { class = "Polybar" }, properties = { below = true } },
 	-- All clients will match this rule.
 	{
 		rule = {},
@@ -827,8 +829,8 @@ awful.spawn("picom")
 -- beautiful.useless_gap = 5
 -- s.mywibox.visible = false
 -- }}}
-client.connect_signal("property::maximized", function(c)
-	if c.maximized and c.class == "firefox" then
-		c.maximized = false
-	end
-end)
+-- client.connect_signal("property::maximized", function(c)
+-- 	if c.maximized and c.class == "firefox" then
+-- 		c.maximized = false
+-- 	end
+-- end)

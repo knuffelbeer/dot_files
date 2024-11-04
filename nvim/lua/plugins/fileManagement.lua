@@ -21,7 +21,7 @@ return {
 							vim.cmd("silent :!okular " .. filename .. " &")
 						elseif file_extension == "odt" or file_extension == "docx" or file_extension == "xlsx" then
 							vim.cmd("silent :!libreoffice " .. filename .. " &")
-						elseif file_extension == '' then
+						elseif file_extension == "" then
 							vim.cmd("Lexplore " .. filename)
 						else
 							vim.cmd("edit " .. filename)
@@ -54,20 +54,6 @@ return {
 				vim.api.nvim_set_hl(0, name, opts)
 			end
 
-			--			hl("TelescopeNormal", { bg = "#181825" })
-			--			hl("TelescopePreviewNormal", { bg = "#181825" })
-			--			hl("TelescopeResultsNormal", { bg = "#181825" })
-			--			hl("TelescopeBorder", { bg = "#181825" })
-			--			hl("TelescopePreviewBorder", { fg = "#181825", bg = "#181825" })
-			--			hl("TelescopePromptBorder", { fg = "#313244", bg = "#313244" })
-			--			hl("TelescopeResultsBorder", { fg = "#181825", bg = "#181825" })
-			--			hl("TelescopeTitle", { fg = "#181825", bg = "#89b4fa" })
-			--			hl("TelescopePreviewTitle", { fg = "#181825", bg = "#89b4fa" })
-			--			hl("TelescopePromptNormal", { bg = "#313244" })
-			--			hl("TelescopePromptTitle", { fg = "#181825", bg = "#89b4fa" })
-			--			hl("TelescopePromptCounter", { fg = "#89b4fa", bg = "#313244" })
-			--			hl("TelescopePromptPrefix", { fg = "#89b4fa", bg = "#313244" })
-
 			hl("TelescopeNormal", { bg = "none", fg = "#870000" })
 			hl("TelescopePreviewNormal", { bg = "none", fg = "#5f6b64" })
 			hl("TelescopeResultsNormal", { bg = "none", fg = "#5f6b64" })
@@ -86,7 +72,41 @@ return {
 		"nvim-telescope/telescope-ui-select.nvim",
 		config = function()
 			-- This is your opts table
+			local sorters = require("telescope.sorters")
+
+			local function selectFile()
+				local selection = require("telescope.actions.state").get_selected_entry()
+				if selection and selection.value then
+					local file_path = selection.value
+					local file_extension = vim.fn.fnamemodify(file_path, ":e"):lower()
+					if file_extension == "pdf" or file_extension == "jpg" or file_extension == "png" then
+						os.execute("okular " .. file_path .. " &")
+					elseif file_extension == "xlsx" or file_extension == "docx" or file_extension == "odt" then
+						os.execute("libreoffice " .. file_path .. " &")
+					else
+						vim.cmd("edit! " .. file_path)
+					end
+				else
+					print("No file selected or invalid selection.")
+				end
+			end
+
 			require("telescope").setup({
+
+				defaults = {
+					mappings = {
+						n = {
+							["<C-o>"] = function()
+								selectFile()
+							end,
+						},
+						i = {
+							["<C-0>"] = function()
+								selectFile()
+							end,
+						},
+					},
+				},
 				extensions = {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
