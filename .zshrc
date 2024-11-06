@@ -111,7 +111,9 @@ alias vi="/home/knuffelbeer/bashScripts/fzf.sh"
 alias scim="sc-im"
 alias dirBase='basename "$(pwd)" | figlet -f small |  lolcat'
 alias clear="clear && dirBase"
-# export VCPKG_ROOT=/home/knuffelbeer/vcpkg/vcpkg
+
+alias grepFirefox="ps aux | grep zen-browser"
+# export VCPKG_ROOT=/home/knuffelbeer/vcpkg/vcpkgal
 export PATH=$PATH:/home/knuffelbeer/vcpkg/
 # ~/.bashrc
 export PATH=$PATH:~/sc-im/src
