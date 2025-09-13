@@ -14,11 +14,11 @@ ls.add_snippets("tex", {
 	--fr fraction
 	--sum sum
 	s("f", fmt("\\frac{{{}}}{{{}}}{}", { i(1), i(2), i(3) })),
-	s("e", fmt("\\exp^{{{}}}", { i(1) })),
-	s("e", fmt("\\exp^{{{}}}", { i(1) })),
+	s("e", fmt("e^{{{}}}", { i(1) })),
 	s("k", fmt("^{{{}}}{}", { i(1), i(2) })),
-
-	s("d", fmt("\\frac{{\\partial}}{{\\partial {}}}", { i(1) })),
+	s("d", fmt("\\frac{{\\partial {}}}{{\\partial {}}}", { i(1),i(2) })),
+	s("v", fmt("\\vec{{{}}}", { i(1)})),
+	s("gr", fmt("{}", { t("\\vec{{\\nabla}}")})),
 	s("d2", fmt("\\frac{{\\partial^{{2}}}}{{\\partial {}^{{2}}}}{}", { i(1), i(2) })),
 	s("dx", fmt("\\frac{{\\partial}}{{\\partial {}}}{}", { t("x"), i(1) })),
 	s("dy", fmt("\\frac{{\\partial}}{{\\partial {}}}{}", { t("y"), i(1) })),

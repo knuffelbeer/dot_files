@@ -1,5 +1,12 @@
 return {
 	{
+		"stevearc/oil.nvim",
+		config = function()
+			require("oil").setup({ default_file_explorer = true,})
+			vim.keymap.set("n", "<leader>-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+		end,
+	},
+	{
 		"prichrd/netrw.nvim",
 		config = function()
 			require("netrw").setup({

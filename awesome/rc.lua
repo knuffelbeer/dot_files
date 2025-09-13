@@ -30,7 +30,41 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 -- {{{ Random Wallpapers
+local open_programs = {}
+local function open_program(program, cmd, idx)
+	if open_programs[program] then
+		-- local screen = awful.screen.focused()
+		-- local tag = screen.tags[idx]
+		-- if tag then
+		-- 	tag:view_only()
+		-- end
+	else
+		naughty.notify({text = "assigning idx " .. idx .. " to " .. program})
 
+		open_programs[program] = { cmd, idx }
+		-- awful.spawn(idx, { tag = "" .. idx })
+	end
+end
+
+local function switch_window_with_rofi()
+	local cmd = 'echo "'
+	for k, _ in pairs(open_programs) do
+		cmd = cmd .. k .. "\n"
+	end
+	cmd = cmd .. '" | rofi -dmenu -p "Switch to:"'
+	local handle = io.popen(cmd)
+	local result = handle:read("*a")
+	handle:close()
+  local test = 'hoi dit is een test\n'
+	test = test:gsub('\n', '')
+	result = string.gsub(tostring(result),"\n", "")
+	if open_programs[result] then
+	local entry = open_programs[result]
+	naughty.notify({ text = entry })
+else
+				print("no match found for " .. result)
+	end
+end
 -- Get the list of files from a directory. Must be all images or folders and non-empty.
 -- function scanDir(directory)
 -- 	local i, fileList, popen = 0, {}, io.popen
@@ -96,9 +130,9 @@ end
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/deadpool.jpg", 1)
 --gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortyred.jpg", 1)
 --gears.wallpaper.set("#000000")
--- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
+gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/jeSOBWZ-kenny-south-park-wallpaper.jpg", 1)
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/sincity3.png", 1)
-gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/archLinuxPaars.png", 1)
+-- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/archLinuxPaars.png", 1)
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandmortydrank.jpg")
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/rickandMortySetrren.png", 1)
 -- gears.wallpaper.maximized("/home/knuffelbeer/backgrounds/kolibrios.png", 1)
@@ -167,9 +201,9 @@ myawesomemenu = {
 			hotkeys_popup.show_help(nil, awful.screen.focused())
 		end,
 	},
-	{ "manual", terminal .. " -e man awesome" },
+	{ "manual",      terminal .. " -e man awesome" },
 	{ "edit config", editor_cmd .. " " .. awesome.conffile },
-	{ "restart", awesome.restart },
+	{ "restart",     awesome.restart },
 	{
 		"quit",
 		function()
@@ -262,6 +296,56 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 --        gears.wallpaper.maximized(wallpaper, s, true)
 --    end
 --end
+-- local function switch_window_with_rofi()
+-- 	local clients = client.get()
+-- 	local options = {}
+-- 	local lookup = {}
+--
+-- 	for _, c in ipairs(clients) do
+-- 		local title = c.name or "Unnamed"
+-- 		table.insert(options, title)
+-- 		lookup[title] = c
+-- 	end
+-- 	-- Open rofi and capture the selected window title
+-- 	local cmd = 'echo "'
+-- 	for k, _ in pairs(open_programs) do
+-- 		cmd = cmd .. k .. "\n"
+-- 	end
+-- 	cmd = cmd .. '" | rofi -dmenu -p "Switch to:"'
+-- 	naughty.notify({ text = cmd })
+-- 	local handle = io.popen(cmd)
+-- 	local result = handle:read("*a")
+-- 	naughty.notify({ text = result })
+-- 	for k, _ in pairs(open_programs) do
+-- 		naughty.notify({ text = "'" .. k .. "'" })
+-- 	end
+-- 	handle:close()
+--   local test = 'hoi dit is een test\n'
+-- 	test = test:gsub('\n', '')
+-- 	naughty.notify({ text = "test = " .. test  })
+-- 	-- naughty.notify({ text = "Global gsub exists? " .. tostring(type(string.gsub)) })
+-- 	naughty.notify({ text = "result = " .. tostring(result) })
+-- 	result = string.gsub(tostring(result),"\n", "")
+--
+-- 	naughty.notify({ text = "Type of result: " .. type(result) })
+-- 	-- result = result:match("^%s*(.-)%s*$") -- Trim leading/trailing spaces
+-- 	naughty.notify({ text = "'" .. result .. "'" })
+-- 	-- Focus the selected window
+-- 	if open_programs[result] then
+-- 	local entry = open_programs[result]
+-- 	naughty.notify({ text = entry })
+-- 	naughty.notify({ text = "idx = " .. entry[1] })
+-- 	local tag = awful.screen.tags["" .. entry[1]]
+-- 	if tag then
+-- 		tag:view_only()
+-- 	end
+-- else
+-- 	naughty.notify({ text = "no such program '" .. result .. "'. Open programs are:" })
+-- 	for k, _ in pairs(open_programs) do
+-- 		naughty.notify({ text = "'" .. k .. "'" })
+-- 	end
+-- 	end
+-- end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 -- screen.connect_signal("property::geometry", set_wallpaper)
@@ -275,76 +359,10 @@ awful.screen.connect_for_each_screen(function(s)
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
-	-- Create an imagebox widget which will contain an icon indicating which layout we're using.
-	-- We need one layoutbox per screen.
-	--   s.mylayoutbox = awful.widget.layoutbox(s)
-	--  s.mylayoutbox:buttons(gears.table.join(
-	--                         awful.button({ }, 1, function () awful.layout.inc( 1) end),
-	--                         awful.button({ }, 3, function () awful.layout.inc(-1) end),
-	--                         awful.button({ }, 4, function () awful.layout.inc( 1) end),
-	--                         awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-	-- Create a taglist widget
-	-- s.mytaglist = awful.widget.taglist {
-	--     screen  = s,
-	--     filter  = awful.widget.taglist.filter.all,
-	--     buttons = taglist_buttons
-	-- }
-	--
-	-- Create a tasklist widget
-	-- s.mytasklist = awful.widget.tasklist {
-	--     screen  = s,
-	--     filter  = awful.widget.tasklist.filter.currenttags,
-	--     buttons = tasklist_buttons
-	-- }
-	--
-	-- Create the wibox
-	-- s.mywibox = awful.wibar({ position = "top", screen = s, opacity=0.8 })
-
-	-- --  -- Add widgets to the wibox
-	--   s.mywibox:setup {
-	--      layout = wibox.layout.align.horizontal,
-	--     { -- Left widgets
-	--         layout = wibox.layout.fixed.horizontal,
-	--          -- mylauncher,
-	--         s.mytaglist,
-	--         s.mypromptbox
-	--     },
-	--     s.mytasklist, -- Middle widget
-	--     { -- Right widgets
-	--           layout = wibox.layout.fixed.horizontal,
-	--           -- mykeyboardlayout,
-	--           -- wibox.widget.systray(),
-	--           mytextclock,
-	--           s.mylayoutbox,
-	--       battery_widget {
-	--       ac = "AC",
-	--       adapter = "BAT0",
-	--       ac_prefix = "AC: ",
-	--       battery_prefix = "",
-	--       percent_colors = {
-	--           { 25, "red"   },
-	--           { 50, "orange"},
-	--           {999, "green" },
-	--       },
-	--       listen = true,
-	--       timeout = 10,
-	--       widget_text = "${AC_BAT}${color_on}${percent}%${color_off}",
-	--        widget_font = "Deja Vu Sans Mono 16",
-	--       tooltip_text = "Battery ${state}${time_est}\nCapacity: ${capacity_percent}%",
-	--       alert_threshold = 5,
-	--       alert_timeout = 0,
-	--       alert_title = "Low battery !",
-	--       alert_text = "${AC_BAT}${time_est}",
-	--       alert_icon = "~/Downloads/low_battery_icon.png",
-	--       warn_full_battery = true,
-	--       full_battery_icon = "~/Downloads/full_battery_icon.png",
-	--       },
-	--
-	--     }
-	-- }
 end)
 -- }}}
 default_browser = "zen-browser"
+-- alternatief: https://actvid.rs/
 local startup_site = "https://freemoviesfull.cc/tv/watch-trailer-park-boys-full-38667"
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -370,6 +388,9 @@ globalkeys = gears.table.join(
 			taskbar = true
 		end
 	end),
+	-- awful.key({ modkey, "Shift" }, "s", function()
+	-- 	switch_window_with_rofi()
+	-- end),
 	awful.key({ "Shift" }, "XF86MonBrightnessUp", function()
 		Gamma = AdjustColorIdx(Gamma, true)
 		awful.spawn(ChooseColor(Gamma, "eDP-1", CurrentBrightness))
@@ -444,23 +465,31 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "g", function()
 		awful.spawn(default_browser .. " https://chat.openai.com/")
 	end, { description = "Chatgpt", group = "applications" }),
+	awful.key({ modkey }, "d", function()
+		awful.spawn(default_browser .. " https://chat.deepseek.com/")
+	end, { description = "deepseek", group = "applications" }),
 	awful.key({ modkey, "Shift" }, "b", function()
 		awful.spawn("blueman-manager")
 	end, { description = "Go to Bluetooth Settings", group = "applications" }),
 
 	awful.key({ modkey }, "g", function()
-		awful.spawn(default_browser .. " " .. startup_site)
+		open_program("chatgpt", "zen-browser --new-window https://chat.openai.com/", 3)
 	end, { description = "Open Google Chrome", group = "applications" }),
 	awful.key({ modkey }, "w", function()
 		awful.spawn(default_browser .. " https://web.whatsapp.com/")
 	end, { description = "Open Whatsapp", group = "applications" }),
 	awful.key({ modkey }, "s", function()
-		awful.spawn("spotify")
+		awful.spawn("spotify-launcher")
 	end, { description = "Open spotifOpen spotify" }),
 
+	-- awful.key({ modkey, "Shift" }, "f", function()
+	-- 	awful.spawn(default_browser .. " https://freemoviesfull.cc/")
+	-- end, { description = "Open fmovies", group = "applications" }),
+
 	awful.key({ modkey, "Shift" }, "f", function()
-		awful.spawn(default_browser .. " https://freemoviesfull.cc/")
+		awful.spawn(default_browser .. " https://www.cineby.app/tv/93405/")
 	end, { description = "Open fmovies", group = "applications" }),
+
 	-- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
 	--           {description="show help", group="awesome"}),
 	awful.key({ modkey, "Shift" }, "s", function()
@@ -502,10 +531,10 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
 	awful.key({ modkey }, "l", function()
-		awful.tag.incmwfact(0.05)
+		awful.tag.incmwfact(-0.05)
 	end, { description = "increase master width factor", group = "layout" }),
 	awful.key({ modkey }, "h", function()
-		awful.tag.incmwfact(-0.05)
+		awful.tag.incmwfact(0.05)
 	end, { description = "decrease master width factor", group = "layout" }),
 	awful.key({ modkey, "Shift" }, "h", function()
 		awful.tag.incnmaster(1, nil, true)
@@ -567,11 +596,9 @@ clientkeys = gears.table.join(
 	awful.key({ modkey }, "t", function(c)
 		c.ontop = not c.ontop
 	end, { description = "toggle keep on top", group = "client" }),
-	awful.key({ modkey }, "n", function(c)
-		-- The client currently has the input focus, so it cannot be
-		-- minimized, since minimized clients can't have the focus.
-		c.minimized = true
-	end, { description = "minimize", group = "client" }),
+	awful.key({ modkey }, "n", function()
+		awful.spawn("zen-browser https://www.nrc.nl/")
+	end, { description = "nrc", group = "client" }),
 	awful.key({ modkey }, "m", function(c)
 		c.maximized = not c.maximized
 		c:raise()
@@ -604,7 +631,7 @@ for i = 1, 10 do
 			-- open Spotify if it's not open and I move to tag 5
 			awful.key({ modkey }, tagnum, function()
 				if openedPrograms["spotify"] == false then
-					awful.spawn("spotify")
+					awful.spawn("spotify-launcher")
 					openedPrograms["spotify"] = true
 				end
 				local screen = awful.screen.focused()
@@ -698,7 +725,7 @@ awful.rules.rules = {
 	{
 		rule = { class = "Spotify" },
 		properties = { screen = 1, tag = "5" },
-		{ rule = { class = "Blueman-manager" }, properties = { screen = 1, tag = "5" } },
+		{ rule = { class = "Blueman-manager" }, properties = { screen = 1, tag = "10" } },
 	},
 	{
 		rule = { class = "Bullet Standalone Example" },
@@ -717,7 +744,7 @@ awful.rules.rules = {
 	-- {rule = {class="qutebrowser"},
 	-- properties = {screen=1, tag="2"}
 	-- },
-	{ rule = { class = "Polybar" }, properties = { below = true } },
+	{ rule = { class = "Polybar" },     properties = { below = true } },
 	-- All clients will match this rule.
 	{
 		rule = {},

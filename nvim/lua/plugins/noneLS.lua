@@ -6,6 +6,8 @@ return {
 	--},
 	config = function()
 		local null_ls = require("null-ls")
+
+    vim.env.PATH = "/home/knuffelbeer/.python_venvs/B/bin:" .. vim.env.PATH
 		null_ls.setup({
 			sources = {
 				-- require("none-ls.diagnostics.eslint_d"),
@@ -17,8 +19,10 @@ return {
 				--null_ls.builtins.diagnostics.erb_lint,
 				--null_ls.builtins.diagnostics.eslint_d,
 				--null_ls.builtins.diagnostics.shellcheck,
-				null_ls.builtins.formatting.black,
-				null_ls.builtins.formatting.cmakelang,
+				null_ls.builtins.formatting.black.with({
+ extra_args = { "--line-length", "80" }
+				}),
+				-- null_ls.builtins.formatting.cmakelang,
 
 				--null_ls.builtins.diagnostics.cmakelint,
 				null_ls.builtins.formatting.isort,

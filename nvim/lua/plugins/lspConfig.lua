@@ -57,19 +57,19 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.pyright.setup({
-				capabilities = capabilities,
-				opts = {
-					-- https://github.com/microsoft/pyright/blob/main/docs/settings.md
-					settings = {
-						python = {
-							analysis = {
-								typeCheckingMode = "basic",
-							},
-							-- Always use the current python in accordance with $PATH (the current conda/virtualenv).
-							--pythonPath = vim.fn.exepath(""),
-						},
-					},
-				},
+				-- capabilities = capabilities,
+				-- opts = {
+				-- 	-- https://github.com/microsoft/pyright/blob/main/docs/settings.md
+				-- 	settings = {
+				-- 		python = {
+				-- 			analysis = {
+				-- 				typeCheckingMode = "basic",
+				-- 			},
+				-- 			-- Always use the current python in accordance with $PATH (the current conda/virtualenv).
+				-- 			--pythonPath = vim.fn.exepath(""),
+				-- 		},
+				-- 	},
+				-- },
 			})
 
 			--      lspconfig.ast_grep.setup({
@@ -82,4 +82,8 @@ return {
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 		end,
 	},
+-- 	{
+-- "jmbuhr/otter.nvim",
+--    opts = {},
+-- 	},
 }

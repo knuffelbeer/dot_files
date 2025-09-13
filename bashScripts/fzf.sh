@@ -29,10 +29,10 @@ case "$var1" in
         libreoffice "$var1" &
         ;;
     *.xlsx)
-        libreoffice "$var1"
+        libreoffice "$var1" &
         ;;
     *.ods)
-        libreoffice "$var1"
+        libreoffice "$var1" &
         ;;
     *.jpg)
         feh "$var1" &
@@ -50,3 +50,4 @@ case "$var1" in
         nvim "$var1"  # Use Neovim as default for all other files.
         ;;
 esac
+echo "$var1"

@@ -100,6 +100,8 @@ vimmiedepimmie() {
 alias v='vimmiedepimmie'
 alias wi='nmtui'
 
+alias helix='/opt/helix/hx'
+alias clip="xclip -selection clipboard -i"
 alias x="xplr"
 alias hdmi="/home/knuffelbeer/bashScripts/hdmi.sh"
 alias n="nvim"
@@ -112,6 +114,10 @@ alias scim="sc-im"
 alias dirBase='basename "$(pwd)" | figlet -f small |  lolcat'
 alias clear="clear && dirBase"
 
+connect_network () {
+nmcli device wifi connect $(nmcli -f SIGNAL,SSID,IN-USE device wifi list | fzf --algo=v2 --tac --sort --no-preview | awk '{print $2}')
+}
+alias nm="connect_network"
 alias grepFirefox="ps aux | grep zen-browser"
 # export VCPKG_ROOT=/home/knuffelbeer/vcpkg/vcpkgal
 export PATH=$PATH:/home/knuffelbeer/vcpkg/
@@ -120,6 +126,7 @@ export PATH=$PATH:~/sc-im/src
 export PATH=$PATH:~/blender-4.1.1-linux-x64
 export PATH=$PATH:/home/knuffelbeer/.local/bin
 export PATH=$PATH:/usr/bin
+export LIBVIRT_DEFAULT_URI=qemu:///system
 # alias code="code --enable-proposed-api ms-toolsai.jupyter"
 source $ZSH/oh-my-zsh.sh
 # eval "$(zoxide init --cmd cd zsh)"
